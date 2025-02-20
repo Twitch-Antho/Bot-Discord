@@ -1,0 +1,38 @@
+Ce bot Discord dispose de fonctionnalités permettant de gérer des événements avec des tirages au sort et d'interagir avec les membres du serveur via des boutons. Voici une explication détaillée des fonctionnalités :
+
+1. Commandes principales :
+
+/help
+Fonction : Fournit un résumé des commandes disponibles pour l'utilisateur.
+Limitation : Seuls les utilisateurs ayant le rôle "Animateur" ou "Admin" peuvent utiliser cette commande. Si un utilisateur n'a pas l'autorisation, le bot lui envoie un message d'erreur.
+/event [message] [salon personnalisé] [time] [gagnants chiffre]
+Fonction : Crée un événement dans un salon spécifique du serveur avec un bouton interactif "Pick" pour que les utilisateurs puissent participer.
+[message] : Le message à envoyer dans le salon pour annoncer l'événement.
+[salon personnalisé] : Le salon où le message et le bouton seront envoyés.
+[time] : La durée de l'événement en minutes avant la clôture de la participation.
+[gagnants chiffre] : Le nombre de gagnants à tirer au sort.
+Le bot envoie un message dans le salon spécifié, avec un bouton "Pick" pour permettre aux membres de participer. Lorsqu'un membre clique sur ce bouton, il est ajouté à la liste des participants, à condition qu'il ne soit pas déjà inscrit.
+/retire [gagnants chiffre]
+Fonction : Effectue un tirage au sort parmi les participants d'un événement en cours pour sélectionner le nombre de gagnants spécifié.
+[gagnants chiffre] : Le nombre de gagnants à tirer au sort.
+Cette commande peut être utilisée uniquement si un événement est en cours.
+ Si un nombre suffisant de participants est présent, le bot sélectionne au hasard les gagnants et les mentionne dans le salon de l'événement. L'événement est ensuite supprimé de la liste des événements en cours.
+
+2. Vérification des rôles :
+Les commandes /help, /event, et /retire ne peuvent être utilisées que par des utilisateurs ayant l'un des deux rôles spécifiques : "Animateur" ou "Admin".
+Cette vérification est effectuée via la fonction check_role, qui compare l'ID du rôle de l'utilisateur à ceux définis (ANIMATEUR_ROLE_ID et ADMIN_ROLE_ID).
+
+3. Gestion des événements :
+Dictionnaire des événements : Le bot garde une trace de tous les événements en cours dans un dictionnaire events, où chaque événement est identifié par l'ID du message qui a créé l'événement.
+Participants : Les membres qui cliquent sur le bouton "Pick" sont ajoutés à une liste de participants pour chaque événement.
+Durée de l'événement : Lorsqu'un événement est créé, une durée est spécifiée. L'événement expire après cette durée (en minutes), et la commande /retire ne peut être utilisée que si l'événement est encore en cours.
+
+4. Interaction avec les boutons :
+Le bouton "Pick" est associé à un événement, et chaque fois qu'un utilisateur clique dessus, il est ajouté à la liste des participants.
+Si un utilisateur a déjà participé, il reçoit un message indiquant qu'il ne peut pas participer à nouveau.
+5. Tirage au sort :
+La commande /retire permet de tirer au sort un nombre spécifié de gagnants parmi les participants. Le bot sélectionne aléatoirement les gagnants, puis les mentionne dans le salon de l'événement.
+
+6. Fonctionnalités supplémentaires :
+Gestion des salons personnalisés : Lors de la création d'un événement, le bot cherche un salon spécifique dans le serveur pour envoyer le message et le bouton. Si le salon n'existe pas, un message d'erreur est renvoyé.
+Gestion du temps d'expiration : L'événement expire après un temps défini lors de la création (en minutes). Le bot utilise cette durée pour déterminer quand il est possible de procéder au tirage au sort.
