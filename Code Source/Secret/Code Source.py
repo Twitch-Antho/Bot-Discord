@@ -87,4 +87,4 @@ async def on_ready():
     print(f"{bot.user} a bien démarré et est prêt à fonctionner !")
 
 # Lancer le bot avec ton token
-bot.run("MTMzNTg3OTk2NDUzMjE0NjI2MQ.GuSpQf.Fp7tznqt1XrMtIQczfBAWVaBEE6it8_4REfLp0")
+bot.run("TOKEN ICI")
