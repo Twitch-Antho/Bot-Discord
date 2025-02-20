@@ -1,0 +1,23 @@
+1. **Bot Setup** :
+   - On crée un bot avec un préfixe `/`.
+   - On gère les permissions et la création de salons privés où l'utilisateur peut poser ses questions.
+   - Le bot garde une trace des questions posées pour chaque utilisateur, avec un maximum de 5 questions par jour.
+
+2. **Commandes** :
+   - `/help` : Affiche un message d'aide avec les commandes disponibles.
+   - `/questions` : Crée un salon privé pour poser des questions.
+   - `/poser <question>` : Permet à l'utilisateur de poser une question à l'IA. Le nombre de questions est limité à 5 par jour.
+   - `/fermé` : Permet à l'utilisateur ou à un modérateur/admin de supprimer le salon des questions.
+   - `/IA Plus` : Explique le plan payant pour poser plus de questions.
+
+3. **Permissions** :
+   - Les salons créés sont privés pour l'utilisateur et accessibles uniquement aux modérateurs et administrateurs.
+   
+### Améliorations possibles :
+- Implémenter une véritable IA pour répondre aux questions (par exemple, avec un modèle de machine learning ou une API comme OpenAI).
+- Ajouter un système de paiement pour gérer le plan payant via un service comme Stripe ou PayPal.
+- Ajouter une base de données pour gérer de manière persistante les informations utilisateur.
+
+### Remarques :
+- N'oublie pas de remplacer `'VOTRE_TOKEN'` par le token de ton bot Discord.
+- Assure-toi d'avoir un rôle ou des permissions de modérateur/admin pour tester certaines fonctionnalités. 
