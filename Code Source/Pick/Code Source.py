@@ -10,8 +10,8 @@ intents.members = True  # Pour suivre les membres du serveur
 bot = commands.Bot(command_prefix='/', intents=intents)
 
 # Rôles autorisés à utiliser les commandes
-ANIMATEUR_ROLE_ID = 1076082745597501484
-ADMIN_ROLE_ID = 1076082745597501488
+ANIMATEUR_ROLE_ID = "ID"
+ADMIN_ROLE_ID = "ID"
 
 # Dictionnaire pour stocker les événements en cours
 events = {}
