@@ -2,6 +2,11 @@
 Voici pleins de bot Discord qui sont dev | Où le code source est donné gratuit <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">Ici</a>
 Dans chaque dessosier il se trouve le fichier source du bot en Python ".py" avec un fichier qui explique comment il fonctionne et à quoi il sert et à quoi sert les commandes.
 
+# Support :
+
+Si un bot crée possède un problème sur votre discord ou une erreur de de code, merci de le signaler <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ici</a> !
+Il sera traité dès que possible et mis à jour dès que j'aurais compris le  problème et mis à jour le code et transmis dans ce Github.
+
 
 # Installe en Local :
 
@@ -31,3 +36,17 @@ Voici un Tableau de leurs Prix :
 | Euros     | RAM  | Go     |
 | Euros    | RAM  | Go      |
 | Euros     | RAM  | Go |
+
+
+
+# Mise à jour ?
+
+Les Mises à jour des versions seront un résumé des fichiers ".py" que j'aurais modifié tout en méttant un lient de redirection au Dossier Modifié.
+Vous serez pas obligé de rechanger votre fichier python du code changé mais si il possède un problème via votre bot il serait logique de le changer.
+
+
+Exemple :
+
+Note Patch sur le bot <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source/Twitch">Twitch</a> :
+- Modification des noms de commande
+- Mise à jour sécurité 
