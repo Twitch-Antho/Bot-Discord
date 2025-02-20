@@ -1,0 +1,30 @@
+Ce bot Discord dispose de plusieurs fonctionnalités réparties en différentes catégories. Voici un résumé de ses capacités principales :
+
+1. Modération :
+Kick : Permet d'expulser un utilisateur d'un serveur avec une raison facultative.
+Avertir (Warn) : Enregistre les avertissements dans un fichier texte avec une raison.
+
+2. Gestion des rôles :
+Ajouter un rôle : Attribue un rôle spécifique à un utilisateur.
+Retirer un rôle : Retire un rôle spécifique à un utilisateur.
+Afficher les rôles : Affiche les rôles d'un utilisateur donné.
+
+3. Commandes Utilisateurs :
+Avatar : Affiche l'avatar d'un utilisateur.
+Informations du serveur : Montre des détails sur le serveur (nom, créateur, membres, etc.).
+
+4. Commandes Twitch :
+Stream : Vérifie si un utilisateur Twitch est en direct et affiche son titre de stream.
+
+5. Mini jeux :
+Devine le nombre : Le bot choisit un nombre entre 1 et 100 et l'utilisateur doit deviner ce nombre.
+Pierre-papier-ciseaux : Jeu classique contre le bot où l'utilisateur choisit entre pierre, papier ou ciseaux.
+Devine l'animal : Le bot donne un indice sur un animal, et l'utilisateur doit deviner de quel animal il s'agit.
+
+6. Ping-Pong :
+Ping : Permet de tester la latence du bot en renvoyant un message "Pong" avec la latence en millisecondes.
+
+7. Fonctionnalités d'admin :
+Ticket : Crée un salon privé pour un utilisateur afin de gérer des demandes ou problèmes.
+Fermer un ticket : Permet à un administrateur de fermer un salon de ticket.
+Créer un événement : Crée un événement avec une description et permet aux utilisateurs de s'inscrire en réagissant à un message.
