@@ -1,0 +1,90 @@
+import discord
+from discord.ext import commands
+from discord import app_commands
+import asyncio
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+# Création du bot avec un préfixe / et des intents activés
+bot = commands.Bot(command_prefix='/', intents=intents)
+
+# Dictionnaires pour stocker les configurations
+log_channel_id = None
+secret_channel_id = None
+
+# Commande /help pour lister les commandes disponibles
+@bot.tree.command(name="help", description="Affiche les commandes disponibles")
+async def help_command(interaction: discord.Interaction):
+    help_text = """
+    **/help** : Affiche les commandes disponibles.
+    **/logs** : Permet de configurer le salon des logs pour ce bot.
+    **/secret** : Permet d'envoyer un message privé pour partager un secret anonyme.
+    **/secret channel** : Permet de voir les secrets sans connaître l'utilisateur.
+    **/annonce channel** : Permet aux administrateurs d'envoyer des annonces dans un salon configuré.
+    """
+    await interaction.response.send_message(help_text)
+
+# Commande /logs pour configurer un salon des logs
+@bot.tree.command(name="logs", description="Configurer un salon pour afficher les logs du bot")
+@app_commands.checks.has_permissions(administrator=True)
+async def logs(interaction: discord.Interaction, channel: discord.TextChannel):
+    global log_channel_id
+    log_channel_id = channel.id
+    await interaction.response.send_message(f"Salon des logs configuré : {channel.mention}")
+
+# Commande /secret pour envoyer un message privé à l'utilisateur
+@bot.tree.command(name="secret", description="Recevoir un message privé pour un secret anonyme")
+async def secret(interaction: discord.Interaction):
+    await interaction.response.send_message("Envoie ton secret en message privé.")
+
+    def check(message):
+        return message.author == interaction.user and isinstance(message.channel, discord.DMChannel)
+
+    try:
+        # Attente du message privé
+        secret_message = await bot.wait_for('message', check=check, timeout=60)
+    except asyncio.TimeoutError:
+        await interaction.user.send("Temps écoulé pour envoyer ton secret.")
+        return
+
+    if log_channel_id:
+        channel = bot.get_channel(log_channel_id)
+        if channel:
+            await channel.send(f"**Un utilisateur a envoyé un secret :**\n{secret_message.content}")
+            await interaction.user.send("Ton secret a été soumis et partagé dans le salon de logs.")
+        else:
+            await interaction.user.send("Le salon des logs n'est pas configuré correctement.")
+    else:
+        await interaction.user.send("Le salon des logs n'est pas configuré.")
+
+# Commande /secret channel pour afficher les secrets sans l'identité de l'utilisateur
+@bot.tree.command(name="secret_channel", description="Afficher les secrets dans le salon configuré")
+async def secret_channel(interaction: discord.Interaction):
+    if secret_channel_id:
+        channel = bot.get_channel(secret_channel_id)
+        if channel:
+            async for message in channel.history(limit=10):  # Afficher les 10 derniers secrets
+                await interaction.response.send_message(f"Secret : {message.content}")
+        else:
+            await interaction.response.send_message("Le salon des secrets n'est pas configuré correctement.")
+    else:
+        await interaction.response.send_message("Le salon des secrets n'est pas configuré.")
+
+# Commande /annonce channel pour publier une annonce dans le salon choisi
+@bot.tree.command(name="annonce_channel", description="Faire une annonce dans le salon configuré")
+@app_commands.checks.has_permissions(administrator=True)
+async def annonce_channel(interaction: discord.Interaction, channel: discord.TextChannel, *, message: str):
+    if channel:
+        await channel.send(f"**Annonce des administrateurs :**\n{message}")
+        await interaction.response.send_message(f"Annonce envoyée dans {channel.mention}")
+    else:
+        await interaction.response.send_message("Le salon spécifié est invalide.")
+
+# Démarrer le bot avec ton token
+@bot.event
+async def on_ready():
+    print(f"{bot.user} a bien démarré et est prêt à fonctionner !")
+
+# Lancer le bot avec ton token
+bot.run("MTMzNTg3OTk2NDUzMjE0NjI2MQ.GuSpQf.Fp7tznqt1XrMtIQczfBAWVaBEE6it8_4REfLp0")
