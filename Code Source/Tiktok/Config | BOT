@@ -1,0 +1,20 @@
+Configuration via /config :
+
+Cette commande permet de configurer le bot avec les paramètres nécessaires : le salon où les publications de TikTok seront envoyées, le lien TikTok de l'utilisateur, le rôle à mentionner (s'il y en a un), et les messages personnalisés pour les vidéos et les lives.
+Récupérer les publications TikTok :
+
+Nous utilisons la bibliothèque TikTokApi pour récupérer les vidéos/lives d'un utilisateur. La fonction get_tiktok_posts récupère les publications récentes de l'utilisateur TikTok spécifié.
+Envoi des vidéos et lives :
+
+La fonction send_tiktok_content est responsable de l'envoi des vidéos et lives dans le salon configuré. Elle vérifie si la publication est un live ou une vidéo, puis envoie le lien avec le message personnalisé.
+Commandes du bot :
+
+/config : Configure le salon, le lien de l'utilisateur, les messages et les rôles à mentionner.
+/check : Envoie les dernières vidéos et lives dans le salon configuré.
+Répétition automatique :
+
+Le bot vérifie toutes les 30 minutes s'il y a de nouvelles vidéos ou lives à envoyer, grâce à la tâche auto_check.
+Points importants :
+Remplace 'YOUR_BOT_TOKEN' par ton propre token de bot.
+Le rôle mentionné (si défini) sera ajouté à chaque message d'alerte pour une vidéo ou un live.
+TikTok API : L'accès à certaines fonctionnalités de l'API TikTok peut être limité ou nécessiter une authentification. Assure-toi d'avoir les bonnes permissions et que TikTokApi fonctionne bien pour ton cas d'utilisation.
