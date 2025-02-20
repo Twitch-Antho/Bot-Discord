@@ -10,18 +10,21 @@ Il sera traité dès que possible et mis à jour dès que j'aurais compris le  p
 - Si vous voulez avoir un bot spéciale : Modération, Musique, Événements, Gestion YouTube et Twitch, Tickets & Support, Vocales et Autres, Achats /Tickets/ Support... Merci d'avrir un <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
 
 
-# Installe en Local :
+# Héberger en Local :
 
-Installez les dépendances :
+- Utiliser l'application "Visuale Studio Code"
 
-- pip install -r requirements.txt
+- Installez les dépendances :
+pip install -r requirements.txt
 
 - Configurez le fichier ".py" avec votre Token à remplir
 ( et vos applications de vos clés "API" si besoin avec le bot )
  avec vos paramètres Discord et API.
 
 - Lancez le bot :
-python bot.py
+python "nom du bot".py
+
+⚠️ Attention si message d'erreur, merci d'aller sur <a href="https://chatgpt.com/">notre Technicien pour lancer le bot</a>
 
 
 # Hébergeur :
