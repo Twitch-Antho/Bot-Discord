@@ -1,1 +1,227 @@
+import discord
+from discord.ext import commands
+import random
+import asyncio
+from twitchAPI.twitch import Twitch
+from datetime import datetime
+
+# Initialisation du bot Discord
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True  # Nécessaire pour la gestion des membres
+bot = commands.Bot(command_prefix='/', intents=intents)
+
+# Clés d'API
+DISCORD_TOKEN = 'VOTRE_TOKEN_DISCORD'
+TWITCH_CLIENT_ID = 'VOTRE_CLIENT_ID_TWITCH'
+TWITCH_OAUTH_TOKEN = 'VOTRE_OAUTH_TOKEN_TWITCH'
+
+# Connexion à l'API Twitch
+twitch = Twitch(TWITCH_CLIENT_ID, TWITCH_OAUTH_TOKEN)
+twitch.authenticate_app([])
+
+# Commande de base
+@bot.event
+async def on_ready():
+    print(f'{bot.user} connecté à Discord !')
+
+# 1. Commandes de modération
+
+# Kick un utilisateur
+@bot.command(name='kick')
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'{member} a été expulsé pour: {reason if reason else "Aucune raison spécifiée."}')
+
+# Avertir un utilisateur (Warning)
+@bot.command(name='warn')
+@commands.has_permissions(kick_members=True)
+async def warn(ctx, member: discord.Member, *, reason=None):
+    with open("warnings.txt", "a") as file:
+        file.write(f"{datetime.now()} - {member} - {reason}\n")
+    await ctx.send(f'{member} a reçu un avertissement pour: {reason}')
+
+# 2. Gestion des rôles
+
+# Donner un rôle à un utilisateur
+@bot.command(name='addrole')
+@commands.has_permissions(manage_roles=True)
+async def add_role(ctx, member: discord.Member, role_name: str):
+    role = discord.utils.get(ctx.guild.roles, name=role_name)
+    if role:
+        await member.add_roles(role)
+        await ctx.send(f'{member} a reçu le rôle {role_name}.')
+    else:
+        await ctx.send(f'Rôle {role_name} non trouvé.')
+
+# Retirer un rôle à un utilisateur
+@bot.command(name='removerole')
+@commands.has_permissions(manage_roles=True)
+async def remove_role(ctx, member: discord.Member, role_name: str):
+    role = discord.utils.get(ctx.guild.roles, name=role_name)
+    if role:
+        await member.remove_roles(role)
+        await ctx.send(f'{member} a perdu le rôle {role_name}.')
+    else:
+        await ctx.send(f'Rôle {role_name} non trouvé.')
+
+# Afficher les rôles d'un utilisateur
+@bot.command(name='roles')
+async def roles(ctx, member: discord.Member):
+    roles = [role.name for role in member.roles]
+    await ctx.send(f'{member} a les rôles suivants: {", ".join(roles)}')
+
+# 3. Commandes Utilisateurs
+
+# Afficher l'avatar d'un utilisateur
+@bot.command(name='avatar')
+async def avatar(ctx, member: discord.Member = None):
+    member = member or ctx.author
+    await ctx.send(member.avatar.url)
+
+# Informations sur le serveur
+@bot.command(name='serverinfo')
+async def server_info(ctx):
+    server = ctx.guild
+    embed = discord.Embed(title=f"Informations sur le serveur {server.name}")
+    embed.add_field(name="Nom", value=server.name)
+    embed.add_field(name="Créé le", value=server.created_at)
+    embed.add_field(name="Propriétaire", value=server.owner)
+    embed.add_field(name="Nombre de membres", value=server.member_count)
+    embed.set_thumbnail(url=server.icon.url)
+    await ctx.send(embed=embed)
+
+# 4. Commandes Twitch
+
+# Vérifier si un utilisateur Twitch est en direct
+@bot.command(name='stream')
+async def stream_status(ctx, channel: str):
+    try:
+        streams = twitch.get_streams(user_logins=[channel])
+        if streams['data']:
+            await ctx.send(f"{channel} est en Live avec le titre: {streams['data'][0]['title']}")
+        else:
+            await ctx.send(f"{channel} n'est pas en direct.")
+    except Exception as e:
+        await ctx.send(f"Erreur lors de la vérification du stream : {str(e)}")
+
+# 5. Mini jeux
+
+# Jeu : Devine le nombre
+@bot.command(name='devine')
+async def devine(ctx):
+    number = random.randint(1, 100)
+    await ctx.send("J'ai choisi un nombre entre 1 et 100. Devine lequel !")
+
+    def check(message):
+        return message.author == ctx.author and message.content.isdigit()
+
+    try:
+        guess = await bot.wait_for('message', check=check, timeout=30.0)
+        guess_number = int(guess.content)
+
+        if guess_number < number:
+            await ctx.send("C'est trop bas ! Essaie encore.")
+            await devine(ctx)  # Relancer le jeu
+        elif guess_number > number:
+            await ctx.send("C'est trop haut ! Essaie encore.")
+            await devine(ctx)  # Relancer le jeu
+        else:
+            await ctx.send(f"Bravo à toi ! Tu as deviné le nombre {number}.")
+
+    except asyncio.TimeoutError:
+        await ctx.send(f"Temps écoulé, soit plus rapide ! Le nombre était {number}.")
+    
+# Jeu : Pierre-papier-ciseaux
+@bot.command(name='pierrepapierciseaux')
+async def pierre_papier_ciseaux(ctx, choix: str):
+    choix = choix.lower()
+    if choix not in ['pierre', 'papier', 'ciseaux']:
+        await ctx.send("Choisis entre 'pierre', 'papier' ou 'ciseaux'.")
+        return
+
+    bot_choix = random.choice(['pierre', 'papier', 'ciseaux, tractopelle'])
+    await ctx.send(f"Je choisis : {bot_choix}.")
+
+    if choix == bot_choix:
+        await ctx.send("C'est une égalité !")
+    elif (choix == 'pierre' and bot_choix == 'ciseaux') or \
+         (choix == 'papier' and bot_choix == 'pierre') or \
+         (choix == 'papier' and bot_choix == 'tractopelle') or \
+         (choix == 'ciseaux' and bot_choix == 'papier'):
+        await ctx.send("Tu as gagné ! 🎉")
+    else:
+        await ctx.send("Tu as perdu... t'es juste mauvais 😢")
+
+# Jeu : Devine l'animal
+@bot.command(name='devineanimal')
+async def devine_animal(ctx):
+    animaux = {
+        "chat": "Je suis un animal domestique, j'aime dormir et me balader partout, aime revenir que pour la bouf.",
+        "chien": "Je suis un animal domestique, j'aime courir et faire mes besoins partout dans la maison.",
+        "éléphant": "Je suis un grand mammifère qui adore faire de la musique.",
+        "lion": "Je suis un grand prédateur, surnommé le roi des animaux.",
+        "papillon": "Je suis un insecte qui se tranforme pour devenir plus grand.",
+    }
+
+    animal = random.choice(list(animaux.keys()))
+    await ctx.send(f"Devine l'animal ! Voici un indice que je te donne : {animaux[animal]}")
+
+    def check(message):
+        return message.author == ctx.author
+
+    try:
+        guess = await bot.wait_for('message', check=check, timeout=30.0)
+        if guess.content.lower() == animal:
+            await ctx.send(f"Bravo ! L'animal était bien un {animal}.")
+        else:
+            await ctx.send(f"Dommage ! L'animal était un {animal}.")
+    
+    except asyncio.TimeoutError:
+        await ctx.send(f"Temps écoulé ! L'animal était un {animal}.")
+
+# 6. Commande de Ping-Pong pour vérifier la latence du bot
+@bot.command(name='ping')
+async def ping(ctx):
+    await ctx.send(f'Pong! Latence: {round(bot.latency * 1000)}ms')
+
+# 7. Fonctionnalités d'admin : Tickets et Events
+
+# Ouvrir un ticket (uniquement pour les utilisateurs)
+@bot.command(name='ticket')
+async def ticket(ctx):
+    # Crée un salon privé pour l'utilisateur
+    ticket_category = discord.utils.get(ctx.guild.categories, name="Tickets")
+    if not ticket_category:
+        ticket_category = await ctx.guild.create_category(name="Tickets")
+    
+    ticket_channel = await ctx.guild.create_text_channel(f'ticket-{ctx.author.name}', category=ticket_category)
+    await ticket_channel.set_permissions(ctx.guild.default_role, send_messages=False)
+    await ticket_channel.set_permissions(ctx.author, send_messages=True)
+
+    await ticket_channel.send(f"{ctx.author.mention} votre ticket a été ouvert ! Le Support viendra vous répondre.")
+
+# Fermer un ticket (uniquement pour les admins)
+@bot.command(name='close_ticket')
+@commands.has_permissions(administrator=True)
+async def close_ticket(ctx, ticket_channel: discord.TextChannel):
+    await ticket_channel.delete()
+    await ctx.send(f"Le ticket {ticket_channel.mention} a été fermé via le Support.")
+
+# Créer un événement (uniquement pour les admins)
+@bot.command(name='create_event')
+@commands.has_permissions(administrator=True)
+async def create_event(ctx, event_name: str, event_description: str):
+    embed = discord.Embed(title=f"Événement: {event_name}", description=event_description, color=discord.Color.blue())
+    embed.add_field(name="Rejoindre l'événement", value="Cliquez sur la réaction pour participer !")
+    event_message = await ctx.send(embed=embed)
+    await event_message.add_reaction("✅")
+
+    # Stocker l'ID de l'événement pour suivre les inscriptions
+    # Cela peut être modifié pour une gestion plus sophistiquée
+    await ctx.send(f"L'événement '{event_name}' ton évent vient d'être crée!")
+
+# Lancer le bot
+bot.run(DISCORD_TOKEN)
 
