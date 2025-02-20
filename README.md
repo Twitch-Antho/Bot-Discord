@@ -29,7 +29,7 @@ Voici aussi leur site : <a href="https://rosox.be/">Site Web</a>
 
 Voici un Tableau de leurs Prix :
 
-# Exemple de tableau
+Exemple de tableau
 
 | Prix 💰            | RAM 💻 | Espace 🖴   |
 |-----------------|-----|-----------|
