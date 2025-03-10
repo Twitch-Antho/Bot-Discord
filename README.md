@@ -7,7 +7,7 @@ Dans chaque dessosier il se trouve le fichier source du bot en Python ".py" avec
 - Si un bot crée possède un problème sur votre discord ou une erreur de de code, merci de le signaler <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ici</a> !
 Il sera traité dès que possible et mis à jour dès que j'aurais compris le  problème et mis à jour le code et transmis dans ce Github.
 
-- Si vous voulez avoir un bot spéciale : Modération, Musique, Événements, Gestion YouTube et Twitch, Tickets & Support, Vocales et Autres, Achats /Tickets/ Support... Merci d'avrir un <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
+- Si vous voulez avoir un bot spéciale : Modération, Musique, Événements, Gestion YouTube et Twitch, Tickets & Support, Vocales et Autres, Achats /Tickets/ Support... Merci d'ouvrir un <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
 
 
 # Héberger en Local :
