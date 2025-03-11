@@ -34,11 +34,11 @@ Voici aussi leur site : <a href="https://rosox.be/">Site Web</a>
 
 Voici un Tableau de leurs Prix :
 
-| Prix 💰            | RAM 💻 | Espace 🖴   |
-|-----------------|-----|-----------|
-| Euros     | RAM  | Go     |
-| Euros    | RAM  | Go      |
-| Euros     | RAM  | Go |
+| Prix 💰            | RAM 💻 | Espace 🖴   | Code</>|
+|-----------------|-----|-----------|--------------------|
+| Euros     | RAM  | Go     | Python 🐍
+| Euros    | RAM  | Go      | Node. js
+| Euros     | RAM  | Go | ❌
 
 
 
