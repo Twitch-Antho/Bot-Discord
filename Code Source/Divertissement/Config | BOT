@@ -1,0 +1,19 @@
+BOT : DIVERTISSEMENT | BOT
+
+-----------------------------------------------------------------[Config]------------------------------------------------------------------
+
+
+Comportement des commandes :
+
+/gif : Envoie un GIF aléatoire provenant de Giphy. Vous pouvez changer le tag dans l'API de Giphy pour cibler des catégories spécifiques de GIFs (par exemple, "fun", "love", "cat").
+/meme : Envoie un meme aléatoire à partir d'une liste d'URLs d'images.
+/reaction : Envoie une réaction emoji aléatoire.
+
+
+Obtenir une clé API Giphy :
+
+Allez sur Giphy Developer et créez un compte pour obtenir une clé API.
+Remplacez votre_clé_giphy_ici dans le code par cette clé.
+Lancer le bot
+Une fois que vous avez remplacé le token du bot et la clé Giphy dans le code, vous pouvez l'exécuter. 
+Lorsque le bot est prêt, il enregistrera automatiquement les commandes slash. Vous pourrez alors les utiliser dans Discord en tapant /gif, /meme ou /reaction.
