@@ -1,0 +1,30 @@
+BOT : MODÉRATION | BOT
+
+-----------------------------------------------------------------[Config]------------------------------------------------------------------
+
+Explication des nouvelles fonctionnalités :
+
+- Commandes de modération :
+Bannir un membre : La commande /ban permet de bannir un membre avec une raison facultative.
+Expulser un membre : La commande /kick permet d'expulser un membre avec une raison facultative.
+
+- Création de tickets :
+Commande /ticket : Crée un salon privé sous une catégorie Tickets où l'utilisateur peut discuter avec les modérateurs.
+
+- Anti-raid avec configuration :
+Commande /AntiRaid : Affiche un menu avec des boutons permettant à un utilisateur de choisir un salon où interdire les liens.
+Afficher les salons interdits : Un bouton qui affiche les salons où les liens sont actuellement interdits.
+Choisir un salon : Un bouton pour permettre à un utilisateur de choisir un salon où interdire les liens.
+Détection de liens : Si un message contient un lien dans un salon où les liens sont interdits, le bot le supprime.
+
+
+Points importants :
+Permissions : Assurez-vous que votre bot dispose des permissions nécessaires (gérer les rôles, bannir, expulser, gérer les salons, etc.).
+
+Token du bot : Remplacez 'TON_TOKEN_ICI' par le token de votre bot.
+
+Configuration des salons : Les salons où les liens sont interdits sont stockés dans restricted_channels. Cette liste peut être étendue selon vos besoins.
+
+Limite de temps pour les actions : Il y a une limite de 30 secondes pour que l'utilisateur choisisse un salon dans la configuration de l'anti-raid.
+
+Avec ces ajouts, votre bot aura des fonctionnalités avancées de modération et de gestion de tickets, ainsi qu'un système d'anti-raid configurable pour gérer les salons où les liens sont interdits.
