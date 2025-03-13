@@ -1,0 +1,28 @@
+BOT : AUTO ROLE | BOT
+
+-----------------------------------------------------------------[Config]------------------------------------------------------------------
+
+
+
+- Commande /ping
+Description : Permet de tester si le bot est actif.
+Syntaxe : /ping
+Réponse : Le bot répondra par "Pong!".
+
+- Commande /suggestion
+Description : Permet aux utilisateurs de soumettre des suggestions. Les suggestions sont envoyées dans un canal nommé suggestions.
+Syntaxe : /suggestion <votre suggestion>
+Exemple : /suggestion Ajouter un salon de discussion général
+Réponse : Le bot remercie l'utilisateur et envoie la suggestion dans le canal suggestions.
+
+- Commande /autorôle
+Description : Permet aux administrateurs de configurer un message dans un salon, auquel les utilisateurs peuvent réagir avec une émote pour recevoir un rôle spécifique.
+Syntaxe : /autorôle <nom_du_salon> <message_à_envoyer> <nom_du_rôle> <émote>
+Exemple : /autorôle salon-général "Réagissez avec 👍 pour obtenir le rôle Membre !" Membre 👍
+Réponse : Le bot envoie le message dans le salon, ajoute l'émote à ce message, et attribue le rôle aux utilisateurs qui réagissent avec l'émote.
+
+- Commandes génériques pour les administrateurs :
+Seules les personnes disposant des permissions administratives peuvent utiliser la commande /autorôle pour configurer l'auto-assignation de rôles.
+
+Lancer le bot
+Une fois que vous avez remplacé le token
