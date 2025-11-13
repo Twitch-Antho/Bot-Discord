@@ -4,7 +4,7 @@ Ce bot Discord dispose de fonctionnalités permettant de gérer des événements
 
 /help
 Fonction : Fournit un résumé des commandes disponibles pour l'utilisateur.
-Limitation : Seuls les utilisateurs ayant le rôle "Animateur" ou "Admin" peuvent utiliser cette commande. Si un utilisateur n'a pas l'autorisation, le bot lui envoie un message d'erreur.
+Limitation : Seuls les utilisateurs ayant le rôle "Animateur" ou "Admin" peuvent utiliser cette commande. Si un utilisateur n'a pas l'autorisation, le bot lui envoie un message d'erreur
 /event [message] [salon personnalisé] [time] [gagnants chiffre]
 Fonction : Crée un événement dans un salon spécifique du serveur avec un bouton interactif "Pick" pour que les utilisateurs puissent participer.
 [message] : Le message à envoyer dans le salon pour annoncer l'événement.
