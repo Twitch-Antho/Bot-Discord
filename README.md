@@ -30,6 +30,7 @@ python "nom du bot".py
 # Hébergeur :
 
 Site Web : https://roxservers.com/
+
 Code perso : « dites que vous venez de “Antho” » (à prévoir comme tu le souhaites)
 
 | Prix 💰     | RAM 💻     | Espace 🖴 | Code </>            |
