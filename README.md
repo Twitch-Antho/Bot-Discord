@@ -29,16 +29,26 @@ python "nom du bot".py
 
 # Hébergeur :
 
-Voici un Serveur <a href="attente">Discord</a> qui possède des hébergeur de qualités incroybales. N'hésitez pas à dire que vous venez de moi "Antho" vous aurez sûrement un prix un peux plus bas.
-Voici aussi leur site : <a href="https://rosox.be/">Site Web</a>
+Site Web : https://roxservers.com/
+Code perso : « dites que vous venez de “Antho” » (à prévoir comme tu le souhaites)
 
-Voici un Tableau de leurs Prix :
+| Prix 💰     | RAM 💻     | Espace 🖴 | Code </>            |
+| ----------- | ---------- | --------- | ------------------- |
+| 0,99 €/mois | ex. 100 Mo | Illimité  | Python 🐍 / Node.js |
+| 1,99 €/mois | 2 Go       | Illimité  | Python 🐍 / Node.js |
+| 3,49 €/mois | 10 Go      | Illimité  | Python 🐍 / Node.js |
 
-| Prix 💰            | RAM 💻 | Espace 🖴   | Code</>|
-|-----------------|-----|-----------|--------------------|
-| Euros     | RAM  | Go     | Python 🐍
-| Euros    | RAM  | Go      | Node. js
-| Euros     | RAM  | Go | ❌
+ou
+
+Site Web : https://ouiheberg.com/en/web-site-hosting
+
+| Prix 💰     | RAM 💻          | Espace 🖴   | Code </>            |
+| ----------- | --------------- | ----------- | ------------------- |
+| 2,99 €/mois | 1 Go (≈1024 Mo) | 10 Go NVMe  | Python 🐍 / Node.js |
+| 4,00 €/mois | 2 Go            | 50 Go NVMe  | Python 🐍 / Node.js |
+| 4,99 €/mois | 4 Go            | 100 Go NVMe | Python 🐍 / Node.js |
+
+
 
 
 
