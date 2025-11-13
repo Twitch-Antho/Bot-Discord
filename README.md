@@ -54,6 +54,18 @@ Note Patch sur le bot <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/
 - Modification des noms de commande
 - Mise à jour sécurité 
 
+# Token Bot ?
+
+Pour mettre votre Token de votre bot il faut se rendre sur le Site [Devellopeur](https://discord.com/developers) :
+- Te connecter
+- Aller dans la Catégorie "Application" puis créer une application "Bot"
+  <img width="3839" height="1848" alt="image" src="https://github.com/user-attachments/assets/639b3987-e682-4928-a760-d104d6bb5010" />
+
+- Vous pouvez ensuite configurer votre bot ici ( en choisissant ce qu'il doit faire), lui donner des droits
+- Dans la catérorie **Bot** vous aurez votre Token à reset pour ensuite le copier/ coller dans le code
+<img width="1090" height="600" alt="image" src="https://github.com/user-attachments/assets/73030817-0d9a-40e6-8066-d72141a84fbc" />
+
+
 
 # Contacts :
 
