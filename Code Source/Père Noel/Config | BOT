@@ -1,0 +1,52 @@
+-----------------------------------------------------------------[Config]------------------------------------------------------------------
+
+* **Commande /avent**
+  **Description** : Affiche le calendrier de l’avent et marque le jour actuel comme ouvert.
+  **Syntaxe** : `/avent`
+  **Exemple d’utilisation** : `/avent`
+  **Réponse** : Le bot renvoie une liste des jours de 1 à 24 avec un ✅ pour les jours ouverts et ⬜ pour les jours fermés.
+  **Fonction supplémentaire** : Si le jour actuel est entre le 1 et 24 décembre, il sera automatiquement marqué comme ouvert et sauvegardé dans le fichier `avent.json`.
+
+---
+
+* **Commande /concours**
+  **Description** : Permet aux utilisateurs de participer au concours de Noël et notifie leur participation.
+  **Syntaxe** : `/concours`
+  **Exemple d’utilisation** : `/concours`
+  **Réponse** :
+
+  1. Envoie un message éphémère à l’utilisateur pour confirmer sa participation.
+  2. Poste un message dans le salon `#concours-noel` pour annoncer que l’utilisateur a participé.
+
+---
+
+* **Tâche automatique de Noël**
+  **Description** : Envoie des messages privés (DM) aux membres pour célébrer Noël.
+  **Déclenchement automatique** :
+
+  * **24 décembre à 16h** : Message de réveillon 🎅
+  * **25 décembre à 9h** : Message de Noël 🎄
+    **Fonctionnement** : Parcourt tous les membres des guildes où le bot est présent et envoie le message à ceux qui ne sont pas des bots.
+
+---
+
+* **Fichier de configuration `avent.json`**
+  **Description** : Stocke les jours du calendrier de l’avent ouverts ou fermés.
+  **Format** : Clé = jour (1 à 24), Valeur = `true` si ouvert, `false` sinon.
+  **Fonction** : Permet de sauvegarder l’état du calendrier entre les redémarrages du bot.
+
+---
+
+* **Permissions requises** :
+
+  * Envoyer des messages dans les salons concernés (`#concours-noel`).
+  * Lire les membres du serveur pour envoyer des DMs (`Intents.members = True`).
+  * Les utilisateurs doivent avoir activé les DMs pour recevoir les messages automatiques.
+
+---
+
+* **Lancer le bot** :
+
+  1. Remplacer `"TON_TOKEN_ICI"` par le token de votre bot Discord.
+  2. Exécuter le script Python.
+  3. Le bot sera actif et prêt à répondre aux commandes `/avent` et `/concours`, et à envoyer les messages automatiques pour Noël.
