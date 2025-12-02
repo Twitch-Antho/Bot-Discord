@@ -1,11 +1,5 @@
 # Bot-Discord 
 
-Yo bg !
-Dernier stream de l’année, je veux te voir là 🔥
-Lethal Company le 27/12 de 17h30 à 19h.
-Je t’envoie le lien + vocal Discord le jour J.
-T’es chaud ? 😎
-
 Voici pleins de bot Discord qui sont dev | Où le code source est donné gratuit <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">Ici</a>
 Dans chaque dessosier il se trouve le fichier source du bot en Python ".py" avec un fichier qui explique comment il fonctionne et à quoi il sert et à quoi sert les commandes.
 
