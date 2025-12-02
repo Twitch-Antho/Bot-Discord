@@ -1,5 +1,4 @@
 # Bot-Discord 
-lient à récup : https://replit.com/@AnthoTwitch/FalseyJson#main.py
 
 Voici pleins de bot Discord qui sont dev | Où le code source est donné gratuit <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">Ici</a>
 Dans chaque dessosier il se trouve le fichier source du bot en Python ".py" avec un fichier qui explique comment il fonctionne et à quoi il sert et à quoi sert les commandes.
