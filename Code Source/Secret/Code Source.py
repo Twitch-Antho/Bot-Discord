@@ -1,90 +1,122 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import asyncio
+import time
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 
-# Création du bot avec un préfixe / et des intents activés
-bot = commands.Bot(command_prefix='/', intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Dictionnaires pour stocker les configurations
-log_channel_id = None
-secret_channel_id = None
+CONFESSION_CHANNEL_ID = 123456789012345678  # ID du salon confessions
 
-# Commande /help pour lister les commandes disponibles
-@bot.tree.command(name="help", description="Affiche les commandes disponibles")
-async def help_command(interaction: discord.Interaction):
-    help_text = """
-    **/help** : Affiche les commandes disponibles.
-    **/logs** : Permet de configurer le salon des logs pour ce bot.
-    **/secret** : Permet d'envoyer un message privé pour partager un secret anonyme.
-    **/secret channel** : Permet de voir les secrets sans connaître l'utilisateur.
-    **/annonce channel** : Permet aux administrateurs d'envoyer des annonces dans un salon configuré.
-    """
-    await interaction.response.send_message(help_text)
+# Pour savoir qui doit envoyer une confession en MP
+waiting_for_confession = {}
 
-# Commande /logs pour configurer un salon des logs
-@bot.tree.command(name="logs", description="Configurer un salon pour afficher les logs du bot")
-@app_commands.checks.has_permissions(administrator=True)
-async def logs(interaction: discord.Interaction, channel: discord.TextChannel):
-    global log_channel_id
-    log_channel_id = channel.id
-    await interaction.response.send_message(f"Salon des logs configuré : {channel.mention}")
+# Pour gérer le cooldown (1 par jour)
+cooldowns = {}  # {user_id: timestamp}
 
-# Commande /secret pour envoyer un message privé à l'utilisateur
-@bot.tree.command(name="secret", description="Recevoir un message privé pour un secret anonyme")
-async def secret(interaction: discord.Interaction):
-    await interaction.response.send_message("Envoie ton secret en message privé.")
 
-    def check(message):
-        return message.author == interaction.user and isinstance(message.channel, discord.DMChannel)
-
-    try:
-        # Attente du message privé
-        secret_message = await bot.wait_for('message', check=check, timeout=60)
-    except asyncio.TimeoutError:
-        await interaction.user.send("Temps écoulé pour envoyer ton secret.")
-        return
-
-    if log_channel_id:
-        channel = bot.get_channel(log_channel_id)
-        if channel:
-            await channel.send(f"**Un utilisateur a envoyé un secret :**\n{secret_message.content}")
-            await interaction.user.send("Ton secret a été soumis et partagé dans le salon de logs.")
-        else:
-            await interaction.user.send("Le salon des logs n'est pas configuré correctement.")
-    else:
-        await interaction.user.send("Le salon des logs n'est pas configuré.")
-
-# Commande /secret channel pour afficher les secrets sans l'identité de l'utilisateur
-@bot.tree.command(name="secret_channel", description="Afficher les secrets dans le salon configuré")
-async def secret_channel(interaction: discord.Interaction):
-    if secret_channel_id:
-        channel = bot.get_channel(secret_channel_id)
-        if channel:
-            async for message in channel.history(limit=10):  # Afficher les 10 derniers secrets
-                await interaction.response.send_message(f"Secret : {message.content}")
-        else:
-            await interaction.response.send_message("Le salon des secrets n'est pas configuré correctement.")
-    else:
-        await interaction.response.send_message("Le salon des secrets n'est pas configuré.")
-
-# Commande /annonce channel pour publier une annonce dans le salon choisi
-@bot.tree.command(name="annonce_channel", description="Faire une annonce dans le salon configuré")
-@app_commands.checks.has_permissions(administrator=True)
-async def annonce_channel(interaction: discord.Interaction, channel: discord.TextChannel, *, message: str):
-    if channel:
-        await channel.send(f"**Annonce des administrateurs :**\n{message}")
-        await interaction.response.send_message(f"Annonce envoyée dans {channel.mention}")
-    else:
-        await interaction.response.send_message("Le salon spécifié est invalide.")
-
-# Démarrer le bot avec ton token
 @bot.event
 async def on_ready():
-    print(f"{bot.user} a bien démarré et est prêt à fonctionner !")
+    print(f"Bot connecté en tant que {bot.user}")
+    try:
+        synced = await bot.tree.sync()
+        print(f"Commandes slash synchronisées : {len(synced)}")
+    except Exception as e:
+        print(e)
 
-# Lancer le bot avec ton token
-bot.run("TOKEN ICI")
+# ============================
+# Slash Command: /confession
+# ============================
+
+@bot.tree.command(name="confession", description="Envoyer une confession anonyme (1 fois par jour)")
+async def confession(interaction: discord.Interaction):
+    user = interaction.user
+
+    # Vérification cooldown 24h
+    now = time.time()
+    if user.id in cooldowns and now - cooldowns[user.id] < 86400:  # 24h = 86400s
+        remaining = int((86400 - (now - cooldowns[user.id])) / 3600)
+        return await interaction.response.send_message(
+            f"⏳ Tu dois attendre encore **{remaining}h** avant de refaire une confession.",
+            ephemeral=True
+        )
+
+    # Envoi en DM
+    try:
+        embed_dm = discord.Embed(
+            title="📨 Confession Anonyme",
+            description=(
+                "Tu peux maintenant m'envoyer ta confession ici.\n"
+                "**Je la publierai anonymement sur le serveur.**"
+            ),
+            color=0x2F3136
+        )
+        embed_dm.set_footer(text="Tu peux écrire un seul message.")
+
+        await user.send(embed=embed_dm)
+
+    except discord.Forbidden:
+        return await interaction.response.send_message(
+            "❌ Je ne peux pas t’envoyer de message privé ! Active tes MP.",
+            ephemeral=True
+        )
+
+    # On note qu'on attend une confession de cet utilisateur
+    waiting_for_confession[user.id] = True
+
+    # Message de confirmation visible seulement par lui
+    embed_confirm = discord.Embed(
+        title="📩 MP envoyé !",
+        description="Va dans tes messages privés pour écrire ta confession.",
+        color=0x5865F2
+    )
+    await interaction.response.send_message(embed=embed_confirm, ephemeral=True)
+
+
+# ============================
+# Gestion des MP
+# ============================
+
+@bot.event
+async def on_message(message):
+    # Ignorer bot
+    if message.author == bot.user:
+        return
+
+    # Si message vient d'un DM et que l’utilisateur doit envoyer une confession
+    if isinstance(message.channel, discord.DMChannel):
+        if waiting_for_confession.get(message.author.id):
+
+            channel = bot.get_channel(CONFESSION_CHANNEL_ID)
+
+            # Embed stylé pour la confession
+            embed_confession = discord.Embed(
+                title="🕶️ Nouvelle Confession Anonyme",
+                description=message.content,
+                color=0xFF6B6B
+            )
+            embed_confession.set_footer(text="Envoyé anonymement")
+
+            await channel.send(embed=embed_confession)
+
+            # Confirmation dans les MP
+            embed_done = discord.Embed(
+                title="✔️ Confession Envoyée",
+                description="Ta confession a été envoyée anonymement sur le serveur.",
+                color=0x57F287
+            )
+            await message.author.send(embed=embed_done)
+
+            # Ajout du cooldown 24h
+            cooldowns[message.author.id] = time.time()
+
+            # Fin de l'attente
+            del waiting_for_confession[message.author.id]
+
+    await bot.process_commands(message)
+
+
+bot.run("TON_TOKEN_ICI")
