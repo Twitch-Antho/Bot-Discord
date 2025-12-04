@@ -40,15 +40,11 @@ Code perso : « dites que vous venez de “Antho” » (à prévoir comme tu l
 | 1,99 €/mois | 2 Go       | Illimité  | Python 🐍 / Node.js |
 | 3,49 €/mois | 10 Go      | Illimité  | Python 🐍 / Node.js |
 
-ou
+**ou**
 
-Site Web : https://ouiheberg.com/en/web-site-hosting
-
-| Prix 💰     | RAM 💻          | Espace 🖴   | Code </>            |
-| ----------- | --------------- | ----------- | ------------------- |
-| 2,99 €/mois | 1 Go (≈1024 Mo) | 10 Go NVMe  | Python 🐍 / Node.js |
-| 4,00 €/mois | 2 Go            | 50 Go NVMe  | Python 🐍 / Node.js |
-| 4,99 €/mois | 4 Go            | 100 Go NVMe | Python 🐍 / Node.js |
+Si tu trouves **pas d'hébergeur** crée un [Ticket](https://github.com/Twitch-Antho/Bot-Discord/issues) et demande moi d'héberger ton bot
+le temps que tu trouves comment l'héberger. Je te donne jusqu'à 2 Mois Gratuit vu que tu utilises par mes services ( et que norlement j'en founis pas)
+**⚠️ Le Bot sera actif que de 8h30 à 22h30 ( et des possiblités de crash à des moments, au moins c'est prévenus)**
 
 
 
