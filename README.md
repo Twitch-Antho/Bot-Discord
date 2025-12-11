@@ -43,7 +43,7 @@ Code perso : « dites que vous venez de “Antho” » (à prévoir comme tu l
 **ou**
 
 Si tu trouves **pas d'hébergeur** crée un [Ticket](https://github.com/Twitch-Antho/Bot-Discord/issues) et demande moi d'héberger ton bot
-le temps que tu trouves comment l'héberger. Je te donne jusqu'à 2 Mois Gratuit vu que tu utilises par mes services ( et que norlement j'en founis pas)
+le temps que tu trouves comment l'héberger. Je te donne jusqu'à 1 Mois Gratuit vu que tu utilises par mes services ( et que norlement j'en founis pas)
 **⚠️ Le Bot sera actif que de 8h30 à 22h30 ( et des possiblités de crash à des moments, au moins c'est prévenus)**
 
 
