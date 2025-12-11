@@ -1,0 +1,126 @@
+# 🎃 Bot Halloween — Organisation d'Événements (Discord)
+
+Ce bot Discord permet d’organiser des événements pour Halloween durant tout le mois d’octobre.
+Il inclut un système complet de création, gestion et participation aux événements à thème : concours, soirées, jeux, sessions RP, etc.
+
+Le bot utilise des **commandes slash modernes**, un **système d’inscription**, une **sauvegarde automatique en JSON** et des contrôles simples et efficaces pour la gestion des événements.
+
+---
+
+## 🎯 **Fonctionnalités principales**
+
+### 🕸️ Organisation d’événements Halloween
+
+* Création d’événements limités au **mois d’octobre**
+* Informations complètes : nom, date, description, catégorie
+* Catégories disponibles :
+
+  * 🎃 concours
+  * 👻 soirée
+  * 🕹️ jeux
+  * 📖 rp
+
+### 👥 Système d’inscription
+
+* Inscription et désinscription facile via commandes slash
+* Affichage du nombre de participants
+* Suivi de chaque participant dans le fichier JSON
+
+### 💾 Sauvegarde automatique (JSON)
+
+* Tous les événements sont stockés dans `events.json`
+* Au redémarrage, le bot recharge automatiquement les données
+
+### 🔐 Gestion sécurisée
+
+* Seul le créateur d’un événement peut le supprimer
+
+---
+
+# 📚 **Liste complète des commandes**
+
+## 🎃 `/creer_event`
+
+Créer un nouvel événement Halloween.
+
+**Paramètres :**
+
+* `nom` → Nom de l’événement
+* `date` → Format `YYYY-MM-DD` (octobre seulement)
+* `description` → Description de l’activité
+* `categorie` → `concours`, `soirée`, `jeux`, `rp`
+
+✔ Enregistre automatiquement l’événement dans `events.json`.
+
+---
+
+## 🎃 `/liste_events`
+
+Affiche tous les événements enregistrés.
+
+**Affiche :**
+
+* Nom
+* Catégorie
+* Date
+* Description
+* Nombre de participants
+
+---
+
+## 🎃 `/inscription`
+
+S’inscrire à un événement existant.
+
+**Paramètre :**
+
+* `nom` → Nom de l’événement
+
+✔ Ajoute l’utilisateur dans la liste des participants.
+
+---
+
+## 🎃 `/desinscription`
+
+Se désinscrire d’un événement.
+
+**Paramètre :**
+
+* `nom` → Nom de l’événement
+
+✔ Retire l’utilisateur de la liste des participants.
+
+---
+
+## 🎃 `/supprimer_event`
+
+Supprimer son propre événement.
+
+**Paramètre :**
+
+* `nom` → Nom de l’événement
+
+✔ Seul le créateur peut supprimer l’événement.
+
+---
+
+# 📁 **Structure JSON (events.json)**
+
+Voici la structure utilisée :
+
+```json
+{
+  "NomEvent": {
+    "date": "2025-10-15",
+    "description": "Exemple d'événement",
+    "categorie": "concours",
+    "author": 123456789012345678,
+    "participants": [
+      987654321098765432,
+      564738291019283746
+    ]
+  }
+}
+```
+
+---
