@@ -1,0 +1,46 @@
+# 🎵 **MusicBot — Bot Discord Musique**
+
+**MusicBot** est un bot Discord conçu pour rendre l’écoute de musique sur ton serveur simple et agréable. Il peut lire des vidéos ou playlists YouTube directement dans les salons vocaux, gérer la file d’attente, et offrir un contrôle complet sur la lecture avec des commandes slash faciles à utiliser.
+
+---
+
+## **Fonctionnalités principales**
+
+* **Lecture de musique** depuis YouTube (vidéos ou playlists).
+* **File d’attente intelligente** : la musique suivante se lance automatiquement.
+* **Commandes de contrôle** : pause, reprise, stop, skip.
+* **Gestion du salon vocal** : le bot peut rejoindre et quitter à la demande.
+* **Playlist visible** : voir les prochaines musiques dans la file d’attente.
+* **Volume réglable** (si besoin, peut être ajouté facilement).
+
+---
+
+## **Commandes Slash (/)**
+
+| Commande      | Description                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `/play <URL>` | Joue une musique ou une playlist depuis un lien YouTube. Si une musique est déjà en cours, elle sera ajoutée à la file d’attente. |
+| `/skip`       | Passe la musique actuelle et lance la suivante dans la file d’attente.                                                            |
+| `/playlist`   | Affiche la liste des musiques à venir dans la file d’attente.                                                                     |
+| `/pause`      | Met en pause la musique en cours.                                                                                                 |
+| `/resume`     | Reprend la musique mise en pause.                                                                                                 |
+| `/stop`       | Arrête la musique et vide complètement la file d’attente.                                                                         |
+| `/join`       | Fait rejoindre le bot dans le salon vocal où tu te trouves.                                                                       |
+| `/leave`      | Déconnecte le bot du salon vocal.                                                                                                 |
+
+---
+
+## **Comment ça fonctionne**
+
+1. Invite le bot sur ton serveur Discord.
+2. Va dans un salon vocal et utilise `/join` pour que le bot le rejoigne.
+3. Utilise `/play <URL>` pour commencer à écouter de la musique.
+4. Les musiques suivantes dans la playlist ou file d’attente se lanceront automatiquement.
+5. Contrôle la lecture avec `/pause`, `/resume`, `/skip` ou `/stop`.
+6. Consulte la file d’attente avec `/playlist`.
+
+---
+
+💡 **Astuce** : Les liens peuvent être des vidéos YouTube simples ou des playlists complètes. Le bot ajoutera automatiquement toutes les musiques dans la file d’attente et les jouera dans l’ordre.
+
+---
