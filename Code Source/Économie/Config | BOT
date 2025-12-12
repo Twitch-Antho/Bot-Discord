@@ -1,0 +1,98 @@
+===========================================
+          BOT D'ÉCONOMIE AVANCÉ
+===========================================
+
+Ce bot Discord permet de gérer une économie virtuelle sur votre serveur.
+Les utilisateurs peuvent gagner de l'argent, acheter des objets, travailler,
+déposer de l'argent à la banque, jouer à des mini-jeux et consulter des
+classements. Toutes les données sont sauvegardées automatiquement dans un
+fichier JSON.
+
+-------------------------------------------
+1. FONCTIONNALITÉS PRINCIPALES
+-------------------------------------------
+
+• Monnaie virtuelle : coins
+• Banque pour sécuriser l'argent
+• Inventaire pour les objets achetés
+• Métiers aléatoires pour gagner des revenus
+• Récompenses quotidiennes (/daily)
+• Shop interactif pour acheter des objets
+• Classement des joueurs les plus riches (/top)
+• Transfert d'argent entre joueurs (/pay)
+• Sauvegarde automatique avec JSON
+• Commandes entièrement en slash (/)
+
+-------------------------------------------
+2. COMMANDES SLASH (/)
+-------------------------------------------
+
+/balance
+    Affiche l'argent liquide et le solde en banque du joueur.
+
+/daily
+    Permet de réclamer une récompense quotidienne aléatoire.
+
+/work
+    Travaille et gagne un salaire aléatoire selon un métier aléatoire.
+
+/pay <user> <amount>
+    Transfère de l'argent à un autre joueur.
+
+/bank <deposit/withdraw> <amount>
+    Déposer ou retirer de l'argent dans sa banque.
+
+/shop
+    Affiche les objets disponibles à l'achat avec leur prix.
+
+/buy <item>
+    Acheter un objet dans la boutique.
+
+/inventory
+    Affiche tous les objets possédés par le joueur.
+
+/top
+    Affiche le classement des 10 joueurs les plus riches du serveur.
+
+-------------------------------------------
+3. GESTION DES DONNÉES
+-------------------------------------------
+
+Toutes les informations des joueurs sont stockées dans le fichier JSON
+"eco_data.json" sous la forme :
+
+{
+    "user_id": {
+        "money": 100,
+        "bank": 0,
+        "inventory": ["Épée", "Bouclier"],
+        "job": "Livreur",
+        "last_daily": 0
+    }
+}
+
+• Le bot crée automatiquement le fichier s'il n'existe pas.
+• Les données sont mises à jour après chaque action.
+• Les informations sont conservées même après un redémarrage du bot.
+
+-------------------------------------------
+4. OBJETS DE LA BOUTIQUE
+-------------------------------------------
+
+Exemples d'objets :
+- Épée : 100 coins
+- Bouclier : 150 coins
+- Voiture : 500 coins
+- Coffre Mystère : 200 coins
+
+-------------------------------------------
+5. REMARQUES
+-------------------------------------------
+
+• Ce bot est entièrement basé sur les commandes slash (/).
+• Assurez-vous que le bot a les permissions nécessaires pour envoyer
+  des messages et gérer les interactions.
+• Ne modifiez pas manuellement le fichier JSON sauf pour remise à zéro
+  ou maintenance.
+
+===========================================
