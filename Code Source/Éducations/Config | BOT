@@ -1,0 +1,63 @@
+Bot Discord Éducatif : Maths & Codage - Cyber Style
+==================================================
+
+Nom : CyberEduBot (exemple)
+
+Description :
+-------------
+CyberEduBot est un bot éducatif pour Discord conçu pour rendre l'apprentissage des mathématiques et de la programmation plus ludique et interactif. Le bot combine des quiz mathématiques, des challenges de codage, une ambiance “cyber hacker”, et un système de points et niveaux pour motiver les utilisateurs.
+
+Fonctionnalités :
+-----------------
+
+1. Quiz Mathématiques (/quiz)
+   - Propose des questions selon le niveau choisi : Collège ou Lycée.
+   - Collège : arithmétique, équations, PGCD, aire, puissances.
+   - Lycée : dérivées, intégrales, équations quadratiques, logarithmes, trigonométrie.
+   - Les questions sont affichées dans des **embeds stylisés**.
+   - Répondre correctement rapporte **10 points**.
+   - Limite de temps : 30 secondes par question.
+
+2. Challenges de Codage (/code)
+   - Propose des challenges de programmation variés (Python) :
+     * Fonctions simples
+     * Boucles
+     * Entrée utilisateur
+     * Factorielle
+     * Inversion de chaîne
+   - Les challenges sont affichés dans des **embeds avec code snippets** pour un aspect plus visuel et pratique.
+   - Encourage les utilisateurs à coder directement dans le chat.
+
+3. Ambiance Cyber / Hacker (/cyber)
+   - Messages aléatoires style cyber / hacker pour ajouter une ambiance immersive.
+   - Exemples :
+     * "⚡ Alerte : intrusion détectée..."
+     * "🖥️ Analyse des données en cours..."
+     * "🚀 Système cybersécurisé : protocoles actifs."
+
+4. Système de Points et Niveaux (/points)
+   - Chaque bonne réponse au quiz rapporte **10 points**.
+   - Le niveau est calculé par rapport aux points : `niveau = points // 50 + 1`.
+   - Affiche les points et le niveau de l’utilisateur dans un **embed stylisé**.
+
+5. Caractéristiques Techniques
+   - Langage : Python 3.11+
+   - Bibliothèque : discord.py v2
+   - Commandes utilisant **slash commands** (`/quiz`, `/code`, `/cyber`, `/points`)
+   - Utilisation d’**embeds stylisés** pour messages attractifs
+   - Système simple de stockage des points en mémoire (peut être amélioré pour une base de données)
+
+Avantages :
+------------
+- Ludique et interactif
+- Encourage l’apprentissage actif
+- Convient pour les communautés éducatives, clubs de maths ou coding
+- Style “cyber” pour motiver les jeunes
+
+Améliorations possibles :
+-------------------------
+- Ajouter plus de questions couvrant tous les programmes de collège à terminale
+- Ajouter des boutons interactifs pour répondre aux quiz
+- Ajouter des mini-leçons ou astuces codage/math
+- Stockage persistant des points et niveaux (base de données)
+- Ajout de sous-catégories pour les maths (algèbre, géométrie, trigonométrie)
