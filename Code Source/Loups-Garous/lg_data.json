@@ -1,0 +1,19 @@
+{
+  "server_id": {
+    "game_active": false,          // Indique si une partie est en cours
+    "creator_id": 0,               // ID du joueur qui a créé la partie
+    "phase": "waiting",            // Phase actuelle : "waiting", "night", "day"
+    "players": {
+      "user_id_1": {
+        "role": "villageois",      // Rôle attribué : villageois, loup-garou, voyante, sorciere
+        "alive": true              // Statut du joueur (true = vivant, false = mort)
+      },
+      "user_id_2": {
+        "role": "loup-garou",
+        "alive": true
+      }
+    },
+    "votes": {},                   // Votes en cours (exemple : {"user_id_voteur": "user_id_vote"})
+    "night_actions": {}            // Actions nocturnes : loups-garous, voyante, sorcière
+  }
+}
