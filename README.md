@@ -25,7 +25,7 @@ pip install -r requirements.txt
 - Lancez le bot :
 python "nom du bot".py
 
-⚠️ Attention si message d'erreur, merci d'aller sur <a href="https://chatgpt.com/">notre Technicien pour les bots</a> 😁😁
+⚠️ Attention si message d'erreur, merci d'aller sur notre <a href="https://chatgpt.com/">Technicien pour les bots</a> 😁😁
 
 
 # Hébergeur :
