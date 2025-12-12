@@ -1,0 +1,91 @@
+===========================================
+        BOT DISCORD – CHASSE DE PÂQUES
+===========================================
+
+Ce bot Discord permet d’organiser une chasse aux œufs amusante
+et interactive à l’aide de commandes slash, d’un inventaire, 
+d’un système de points, d’un classement et d’une sauvegarde 
+automatique via un fichier JSON.
+
+-------------------------------------------
+1. FONCTIONNALITÉS PRINCIPALES
+-------------------------------------------
+
+• Chasse aux œufs interactive avec bouton "Chercher un œuf"
+• Système de butin (œufs, chocolats, œufs rares)
+• Score attribué en fonction de ce que le joueur trouve
+• Inventaire personnel pour chaque joueur
+• Profil / Niveau basé sur le score
+• Classement global des chasseurs
+• Sauvegarde automatique dans data_paques.json
+• Restauration des données au redémarrage du bot
+
+
+-------------------------------------------
+2. LOOT POSSIBLE LORS DE LA CHASSE
+-------------------------------------------
+
+- 🥚 Œuf simple : +1 point (commun)
+- 🍫 Chocolat : +2 points (peu commun)
+- 🐣 Œuf rare : +5 points (rare)
+
+Les chances sont pondérées pour rendre les œufs rares plus difficiles à obtenir.
+
+
+-------------------------------------------
+3. FONCTIONNEMENT DU FICHIER JSON
+-------------------------------------------
+
+Le fichier data_paques.json contient les données de chaque joueur :
+
+{
+  "ID_UTILISATEUR": {
+      "oeufs": nombre,
+      "chocolats": nombre,
+      "rares": nombre,
+      "score": nombre
+  }
+}
+
+• Le fichier est créé automatiquement si absent.
+• Il est mis à jour après chaque action (chasse, gain, etc.).
+• Les données restent même après redémarrage du bot.
+
+
+-------------------------------------------
+4. LISTE DES COMMANDES SLASH (/)
+-------------------------------------------
+
+/chasse
+    Lance une chasse aux œufs.
+    Un bouton apparaît et permet au joueur de tenter sa chance.
+
+/inventaire
+    Affiche l’inventaire complet du joueur :
+    œufs, chocolats, œufs rares et score total.
+
+/profil
+    Affiche le profil du joueur :
+    score + niveau (score ÷ 10).
+
+/classement
+    Affiche le TOP 10 des meilleurs chasseurs d’œufs du serveur.
+
+
+-------------------------------------------
+5. AVIS AUX UTILISATEURS
+-------------------------------------------
+
+Ce bot est prévu pour fonctionner uniquement avec des commandes slash.
+Assurez-vous d’avoir synchronisé les commandes et activé le Message Intent.
+
+Le fichier JSON ne doit pas être modifié manuellement,
+sauf en cas de maintenance ou de remise à zéro.
+
+
+-------------------------------------------
+6. CRÉDITS
+-------------------------------------------
+
+Bot programmé pour un événement spécial de Pâques.
+Système interactif basé sur discord.py et les commandes slash.
