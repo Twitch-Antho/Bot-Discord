@@ -1,0 +1,86 @@
+===========================================
+          BOT LOUP-GAROU / MAFIA
+===========================================
+
+Description :
+--------------
+Ce bot Discord permet d'organiser des parties de Loup-Garou (Mafia) directement
+sur votre serveur. Les joueurs peuvent rejoindre une partie, recevoir un rôle
+secret, participer aux phases de nuit et de jour, voter pour éliminer des
+suspects et tenter de gagner selon leur camp (Loups-Garous ou Villageois).
+
+Toutes les données de la partie sont sauvegardées automatiquement dans un
+fichier JSON, permettant de suivre l'état des joueurs, leurs rôles et les votes.
+
+-------------------------------------------
+1. FONCTIONNALITÉS PRINCIPALES
+-------------------------------------------
+
+• Gestion des joueurs :
+    - Rejoindre ou quitter la partie avant le début
+    - Attribution aléatoire des rôles : villageois, loup-garou, voyante, sorcière
+
+• Phases de jeu :
+    - Nuit : Loups-Garous choisissent une victime, Voyante peut inspecter un joueur,
+      Sorcière peut sauver ou tuer
+    - Jour : Les joueurs votent pour éliminer un suspect, discussions en live
+
+• Votes et interactions :
+    - Les votes peuvent être faits via commandes ou boutons interactifs
+    - Annonces automatiques des victimes et joueurs encore en vie
+
+• Fin de partie automatique :
+    - Vérification des conditions de victoire
+    - Déclaration des gagnants
+
+• Sauvegarde JSON :
+    - Suivi des joueurs, rôles, état de vie, votes et actions nocturnes
+    - Reprise possible même si le bot redémarre
+
+-------------------------------------------
+2. COMMANDES SLASH (/)
+-------------------------------------------
+
+/join_game
+    Rejoindre la partie avant qu'elle ne commence.
+
+/leave_game
+    Quitter la partie avant le début.
+
+/start_game
+    Lancer la partie (admin ou créateur de la partie).
+    Minimum 4 joueurs requis. Les rôles sont attribués automatiquement.
+
+-------------------------------------------
+3. STRUCTURE DU FICHIER JSON
+-------------------------------------------
+
+Fichier : werewolf_data.json
+
+{
+    "server_id": {
+        "game_active": true,
+        "creator_id": "user_id_du_createur",
+        "phase": "night",
+        "players": {
+            "user_id_1": {"role": "voyante", "alive": true},
+            "user_id_2": {"role": "loup-garou", "alive": true},
+            "user_id_3": {"role": "villageois", "alive": true}
+        },
+        "votes": {},
+        "night_actions": {"kill": "user_id_3"}
+    }
+}
+
+-------------------------------------------
+4. REMARQUES
+-------------------------------------------
+
+• Le bot utilise des commandes slash pour toutes les interactions.
+• Les rôles sont communiqués en message privé (DM) à chaque joueur.
+• Le bot gère automatiquement les phases jour/nuit et annonce les événements
+  dans le canal principal.
+• Il est possible d’ajouter de nouveaux rôles ou des fonctionnalités supplémentaires
+  comme des récompenses ou des statistiques.
+
+===========================================
