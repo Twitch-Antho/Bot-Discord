@@ -1,0 +1,55 @@
+Prochaine Mise à jour : version 2.0 avec boutons interactifs / choix de contre‑attaque
+
+CyberEduBot - Bot Discord Geek & Éducatif
+========================================
+
+Description :
+-------------
+CyberEduBot est un bot éducatif et ludique pour Discord, combinant mini-jeux geek, cybersécurité éducative et points/niveaux pour motiver les utilisateurs. Il propose des interactions immersives avec des embeds stylisés et des commandes slash (/).
+
+Fonctionnalités principales :
+-----------------------------
+
+1. Mini-jeu Pokémon / Monstres Virtuels
+   - /capture : attraper un Pokémon aléatoire et gagner des points.
+   - /mespokemons : afficher tous les Pokémon capturés par l’utilisateur.
+   - Points attribués : +10 points par capture.
+   - Système de progression basé sur les points.
+
+2. Missions Hacker / Cyberpunk
+   - /mission : recevoir une mission fictive de hacker pour gagner des points.
+   - Points attribués : +15 points par mission.
+   - Missions fictives immersives, style cyberpunk.
+
+3. Cyber Sécurité Défensive
+   - /cyber_securite : scénario de cybersécurité grave avec contexte dramatique.
+   - Le bot propose des **contre-mesures défensives** éducatives (isoler serveur, fail2ban, restauration, filtrage IP, etc.).
+   - Points attribués : +20 points par scénario.
+   - Objectif pédagogique uniquement, totalement fictif.
+
+4. Points et Niveaux
+   - /points : afficher ses points et son niveau actuel.
+   - Calcul du niveau : niveau = points ÷ 50 + 1.
+   - Permet de suivre sa progression dans les mini-jeux et missions.
+
+5. Messages Cyber / Immersion
+   - /cyber : messages aléatoires style hacker / cyber (ex : alertes, analyses, protocoles activés).
+   - Crée une ambiance immersive dans le serveur.
+
+6. Embeds stylisés et interactifs
+   - Tous les messages importants (captures, missions, scénarios cybersécurité, points) sont affichés dans des embeds attractifs.
+   - Mise en forme colorée, titres et footers pour renforcer l’expérience utilisateur.
+
+Avantages :
+------------
+- Ludique, éducatif et immersif.
+- Apprentissage des concepts de cybersécurité de façon sécurisée.
+- Convient pour communautés geeks, clubs de codage, serveurs éducatifs ou cyber.
+- Points et niveaux pour motiver la participation.
+
+Améliorations possibles :
+-------------------------
+- Ajouter des boutons interactifs pour choisir des contre-mesures en /cyber_securite.
+- Implémenter des combats Pokémon PvP entre membres.
+- Stockage persistant des points et inventaires dans une base de données.
+- Ajout de missions quotidiennes ou mode campagne pour cybersécurité.
