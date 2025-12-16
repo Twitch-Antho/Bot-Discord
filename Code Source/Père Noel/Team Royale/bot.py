@@ -106,7 +106,7 @@ class CaseView(discord.ui.View):
 
 @tasks.loop(hours=24)
 async def calendrier_avent():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(ZoneInfo("Europe/Paris"))
 
     if now.year == 2026 and now.month == 12 and 1 <= now.day <= 24:
         data = load_data()
@@ -116,7 +116,8 @@ async def calendrier_avent():
             channel = guild.get_channel(user["channel_id"])
             if channel:
                 await channel.send(
-                    f"🎄 **Jour {now.day}**\nClique pour ouvrir ta case !",
+                    f"🎄 **Jour {now.day}**\n"
+                    f"Il est 8h ! Clique pour ouvrir ta case 🎁",
                     view=CaseView(now.day)
                 )
 
