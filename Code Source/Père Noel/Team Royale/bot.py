@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands, tasks
-from datetime import datetime, timezone
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import json
 import os
 
@@ -14,8 +15,9 @@ intents.members = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 DATA_FILE = "data.json"
+PARIS_TZ = ZoneInfo("Europe/Paris")
 
-# ------------------ UTILS ------------------
+# ------------------ DATA UTILS ------------------
 
 def load_data():
     if not os.path.exists(DATA_FILE):
@@ -27,7 +29,7 @@ def save_data(data):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-# ------------------ INSCRIPTION VIEW ------------------
+# ------------------ INSCRIPTION ------------------
 
 class InscriptionView(discord.ui.View):
     def __init__(self):
@@ -64,7 +66,7 @@ class InscriptionView(discord.ui.View):
 
         await channel.send(
             f"🎁 Bienvenue {member.mention} !\n"
-            f"Le **Calendrier de l’Avent 2026** commence le **1er décembre** 🎄"
+            f"Le calendrier de l’Avent commence le **1er décembre 2026 à 08:00** 🎄"
         )
 
         await interaction.response.send_message(
@@ -80,8 +82,15 @@ class CaseView(discord.ui.View):
 
     @discord.ui.button(label="🎁 OUVRE TA CASE", style=discord.ButtonStyle.primary)
     async def open_case(self, interaction: discord.Interaction, button: discord.ui.Button):
-        data = load_data()
+        now = datetime.now(PARIS_TZ)
         user_id = str(interaction.user.id)
+        data = load_data()
+
+        # ❌ Avant 8h
+        if now.hour < 8:
+            return await interaction.response.send_message(
+                "⏰ Tu ne peux pas ouvrir la case avant **08:00**.", ephemeral=True
+            )
 
         if user_id not in data["users"]:
             return await interaction.response.send_message(
@@ -98,15 +107,16 @@ class CaseView(discord.ui.View):
         save_data(data)
 
         await interaction.response.send_message(
-            f"🧠 **Jour {self.day}**\n{question}\n\n"
+            f"🧠 **Jour {self.day}**\n"
+            f"{question}\n\n"
             f"✍️ Réponds directement dans ce salon."
         )
 
-# ------------------ TÂCHE QUOTIDIENNE ------------------
+# ------------------ TÂCHE À 08:00 ------------------
 
 @tasks.loop(hours=24)
 async def calendrier_avent():
-    now = datetime.now(ZoneInfo("Europe/Paris"))
+    now = datetime.now(PARIS_TZ)
 
     if now.year == 2026 and now.month == 12 and 1 <= now.day <= 24:
         data = load_data()
@@ -117,9 +127,21 @@ async def calendrier_avent():
             if channel:
                 await channel.send(
                     f"🎄 **Jour {now.day}**\n"
-                    f"Il est 8h ! Clique pour ouvrir ta case 🎁",
+                    f"Il est **08:00** ! Clique pour ouvrir ta case 🎁",
                     view=CaseView(now.day)
                 )
+
+@calendrier_avent.before_loop
+async def before_calendrier():
+    await bot.wait_until_ready()
+
+    now = datetime.now(PARIS_TZ)
+    target = now.replace(hour=8, minute=0, second=0, microsecond=0)
+
+    if now >= target:
+        target += timedelta(days=1)
+
+    await discord.utils.sleep_until(target)
 
 # ------------------ COMMANDES STAFF ------------------
 
@@ -141,6 +163,6 @@ async def on_ready():
     calendrier_avent.start()
     print(f"✅ Bot connecté : {bot.user}")
 
-# ------------------ LANCEMENT ------------------
+# ------------------ RUN ------------------
 
 bot.run(TOKEN)
