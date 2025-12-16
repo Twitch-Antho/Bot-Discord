@@ -3,7 +3,7 @@ QUESTIONS = {
 
     2: "🖊️ **Imagination** Invente une courte histoire (5 lignes max) qui commence par : *« La veille de Noël, quelque chose d’étrange arriva… »*",
 
-    3: "📸 **Photo** Envoie une photo d’un objet chez toi qui te fait penser à Noël.",
+    3: "📸 **Photo** Envoie une photo ton setup de rêve.",
 
     4: "🎶 **Musique** Quelle est ta chanson de Noël préférée et pourquoi ?",    
 
@@ -41,9 +41,9 @@ QUESTIONS = {
 
     21: "📢 **Feedback** Qu’est-ce que tu aimerais améliorer sur le serveur Discord ?",
 
-    22: "💭 **Projection**\nQuels sont tes objectifs ou envies pour **2027** ?",
+    22: "💭 **Projection** Quels sont tes objectifs ou envies pour **2027** ?",
 
-    23: "🎄 **Photo obligatoire**\nEnvoie une photo de ton **sapin de Noël** 🎄 (ou une description si tu n’en as pas).",
+    23: "🎄 **Photo obligatoire** Envoie une photo de ton **sapin de Noël** 🎄.",
 
-    24: "🎉 **Final**\nPropose **une idée ou un concept original** pour le calendrier de l’Avent **2027**.\nMerci pour ta participation ❤️"
+    24: "🎉 **Final** Propose **une idée ou un concept original** pour le calendrier de l’Avent **2027**. Merci pour ta participation ❤️"
 }
