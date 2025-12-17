@@ -1,7 +1,7 @@
 QUESTIONS = {
     1: "🎄 **Créatif** Envoie une photo ou un dessin représentant **Noël pour toi** (fait à la main ou digital).",
 
-    2: "🖊️ **Imagination** Invente une courte histoire (5 lignes max) qui commence par : *« La veille de Noël, quelque chose d’étrange arriva… »*",
+    2: "🖊️ **Source** ESSAIE DE TROUVER "Antho_Off" sur Akinator et envoie en capture la preuve ici*",
 
     3: "📸 **Photo** Envoie une photo ton setup de rêve.",
 
