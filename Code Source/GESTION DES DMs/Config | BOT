@@ -1,0 +1,91 @@
+==========================
+DMShield Bot - Version 1
+==========================
+
+DESCRIPTION
+-----------
+DMShield est un bot Discord conçu pour gérer et protéger les DMs des utilisateurs sur un serveur. 
+Il permet de filtrer les messages, bloquer les spams et liens, autoriser certains utilisateurs, 
+et garder un journal chiffré des interactions pour le staff.
+
+PRINCIPALES FONCTIONNALITÉS
+---------------------------
+1. Protection des DMs
+   - Activation/Désactivation individuelle du DMShield.
+   - Autorisation ou blocage spécifique d'utilisateurs.
+   - Filtrage automatique de liens et spam (répétitions exagérées de caractères).
+
+2. Interactions via boutons
+   - Les utilisateurs peuvent gérer facilement leurs autorisations DM avec des boutons Discord :
+     - Autoriser
+     - Bloquer
+
+3. Logs chiffrés pour le staff
+   - Tous les messages interceptés (bloqués ou autorisés) sont enregistrés dans un fichier chiffré.
+   - Seul le staff disposant de la clé Fernet peut lire les logs via la commande dédiée.
+   - Protection de la vie privée et conformité aux bonnes pratiques.
+
+4. Base de données SQLite
+   - Gestion des utilisateurs et de leurs autorisations de manière persistante.
+   - Sauvegarde automatique même après redémarrage du bot.
+
+COMMANDES UTILISATEUR
+--------------------
+/dmshield on
+   - Active la protection DM pour l'utilisateur.
+
+/dmshield off
+   - Désactive la protection DM pour l'utilisateur.
+
+/dmshield allow @user
+   - Autorise un utilisateur spécifique à envoyer des DMs.
+
+/dmshield_buttons
+   - Affiche un message avec boutons "Autoriser" et "Bloquer" pour gérer facilement les autorisations.
+
+COMMANDES STAFF (ADMIN)
+-----------------------
+/dmshield_logs [limit]
+   - Affiche les derniers logs chiffrés pour le staff (ex: /dmshield_logs 20 pour les 20 derniers).
+   - Les logs incluent les messages autorisés, bloqués ou contenant des liens/spam.
+
+FONCTIONNEMENT DES LOGS
+-----------------------
+1. Tous les DMs interceptés sont analysés par le bot.
+2. Le bot décide si le message est autorisé ou bloqué.
+3. Chaque événement est chiffré avec Fernet et écrit dans le fichier :
+   logs/dmshield_logs.enc
+4. Le fichier peut commencer vide ; le bot le remplira automatiquement au fur et à mesure.
+5. Le staff peut lire les logs via la commande `/dmshield_logs`.
+
+FILTRAGE DES MESSAGES
+---------------------
+- Bloque automatiquement les messages contenant des liens (http:// ou https://).
+- Bloque les messages considérés comme spam simple (répétitions de caractères).
+- Les messages des utilisateurs autorisés passent normalement.
+
+BOUTONS INTERACTIFS
+-------------------
+- Les utilisateurs peuvent cliquer sur "Autoriser" ou "Bloquer" pour gérer leurs DM.
+- Chaque action via bouton est automatiquement loggée de façon chiffrée.
+
+STRUCTURE DU BOT
+----------------
+dmshield_bot/
+├── main.py               # Code principal du bot
+├── crypto.py             # Module de chiffrement/déchiffrement des logs
+├── config.py             # Configuration du bot (TOKEN, préfixe, clé Fernet)
+├── dmshield.db           # Base SQLite utilisateurs et autorisations
+└── logs/
+    └── dmshield_logs.enc # Fichier chiffré des logs
+
+NOTES
+-----
+- Ne pas modifier manuellement le fichier dmshield_logs.enc.
+- La clé Fernet doit rester secrète pour garantir la confidentialité des logs.
+- Le bot fonctionne même si le fichier de logs est initialement vide.
+- Les logs sont écrits automatiquement pour chaque message intercepté.
+
+==========================
+Fin de la documentation
+==========================
