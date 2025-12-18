@@ -4,11 +4,10 @@ from discord.ext import commands
 from discord.ui import Button, View
 import sqlite3
 import re
+from config import TOKEN, PREFIX
+from crypto import write_log, read_logs
 
-# ───────── CONFIG ─────────
-TOKEN = "TON_TOKEN_ICI"
-PREFIX = "/"
-
+# ───────── INTENTS ─────────
 intents = discord.Intents.default()
 intents.members = True
 intents.messages = True
@@ -61,7 +60,7 @@ def is_allowed(target_id, sender_id):
     allowed = [row[0] for row in c.fetchall()]
     return sender_id in allowed
 
-# ───────── FILTRAGE ─────────
+# ───────── FILTRAGE LIENS / SPAM ─────────
 def contains_link_or_spam(message_content):
     # Liens
     if re.search(r"https?://", message_content):
@@ -71,7 +70,7 @@ def contains_link_or_spam(message_content):
         return True
     return False
 
-# ───────── COMMANDES UTILISATEUR ─────────
+# ───────── COMMANDE /dmshield ─────────
 @bot.command()
 async def dmshield(ctx, option: str, member: discord.Member = None):
     user_id = ctx.author.id
@@ -88,28 +87,6 @@ async def dmshield(ctx, option: str, member: discord.Member = None):
     else:
         await ctx.send("❌ Commande invalide. Exemples: `/dmshield on`, `/dmshield allow @user`")
 
-# ───────── INTERCEPTION DES DMS ─────────
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-
-    if isinstance(message.channel, discord.DMChannel):
-        for row in c.execute("SELECT user_id FROM users WHERE enabled=1"):
-            target_id = row[0]
-            if message.author.id == target_id:
-                continue  # l'utilisateur DM lui-même
-            if not is_allowed(target_id, message.author.id):
-                # Filtrage liens / spam
-                if contains_link_or_spam(message.content):
-                    await message.channel.send("❌ Message bloqué : liens ou spam détectés.")
-                    return
-                else:
-                    await message.channel.send("⚠️ Destinataire DMShield actif, message non autorisé.")
-                    return
-
-    await bot.process_commands(message)
-
 # ───────── BOUTONS INTERACTIFS ─────────
 class DMShieldView(View):
     def __init__(self, target_user):
@@ -122,6 +99,7 @@ class DMShieldView(View):
         await interaction.response.send_message(
             f"✅ Vous êtes maintenant autorisé à DM {self.target_user.display_name} !", ephemeral=True
         )
+        write_log(f"[BUTTON] {interaction.user.id} autorisé à DM {self.target_user.id}")
 
     @discord.ui.button(label="Bloquer", style=discord.ButtonStyle.red)
     async def block_button(self, interaction: discord.Interaction, button: Button):
@@ -130,12 +108,49 @@ class DMShieldView(View):
         await interaction.response.send_message(
             f"❌ Vous êtes bloqué pour DM {self.target_user.display_name}.", ephemeral=True
         )
+        write_log(f"[BUTTON] {interaction.user.id} bloqué pour DM {self.target_user.id}")
 
 @bot.command()
 async def dmshield_buttons(ctx):
-    """Envoie un message avec boutons Autoriser / Bloquer pour gérer les DM."""
-    await ctx.send("Gérer vos autorisations DM :",
-                   view=DMShieldView(ctx.author))
+    await ctx.send("Gérer vos autorisations DM :", view=DMShieldView(ctx.author))
+
+# ───────── INTERCEPTION DES DMS ─────────
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    if isinstance(message.channel, discord.DMChannel):
+        for row in c.execute("SELECT user_id FROM users WHERE enabled=1"):
+            target_id = row[0]
+            if message.author.id == target_id:
+                continue  # l'utilisateur DM lui-même
+            if not is_allowed(target_id, message.author.id):
+                if contains_link_or_spam(message.content):
+                    await message.channel.send("❌ Message bloqué : liens ou spam détectés.")
+                    write_log(f"[BLOCK] DM de {message.author.id} à {target_id} bloqué (spam/links)")
+                    return
+                else:
+                    await message.channel.send("⚠️ Destinataire DMShield actif, message non autorisé.")
+                    write_log(f"[BLOCK] DM de {message.author.id} à {target_id} bloqué (non autorisé)")
+                    return
+            else:
+                # Message autorisé
+                write_log(f"[ALLOWED] DM de {message.author.id} à {target_id} autorisé")
+
+    await bot.process_commands(message)
+
+# ───────── COMMANDES STAFF ─────────
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def dmshield_logs(ctx, limit: int = 20):
+    """Afficher les derniers logs chiffrés pour staff."""
+    logs = read_logs()
+    logs_to_show = logs[-limit:]
+    if not logs_to_show:
+        await ctx.send("Aucun log disponible.")
+        return
+    await ctx.send("📜 Derniers logs :\n" + "\n".join(logs_to_show))
 
 # ───────── LANCEMENT ─────────
 bot.run(TOKEN)
