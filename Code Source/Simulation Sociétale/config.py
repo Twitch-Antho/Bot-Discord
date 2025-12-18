@@ -1,0 +1,1 @@
+TOKEN = "TON_TOKEN"
