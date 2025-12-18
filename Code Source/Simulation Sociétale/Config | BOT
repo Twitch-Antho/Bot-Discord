@@ -1,0 +1,118 @@
+🧪 BOT SIMULATION SOCIÉTALE — DOCUMENTATION OFFICIELLE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 PRINCIPE GÉNÉRAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Le Bot Simulation Sociétale transforme le serveur
+en une société vivante où les membres :
+• créent des lois
+• votent
+• subissent les conséquences collectives
+
+Le serveur évolue selon les décisions de ses membres.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧠 CONCEPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Chaque serveur est une société autonome :
+• Les lois influencent le fonctionnement
+• Les décisions ont des effets réels
+• Les membres façonnent leur avenir
+
+Aucune loi n’est imposée par le bot.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ COMMANDES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/loi <titre>
+→ Propose une nouvelle loi
+
+/vote <id_loi> <oui|non>
+→ Vote pour ou contre une loi
+
+/lois
+→ Liste des lois actives
+
+/constitution
+→ Résumé de l’état actuel de la société
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🗳️ SYSTÈME DE VOTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• 1 membre = 1 vote
+• Votes transparents
+• Seuil d’adoption configurable
+• Résultats visibles en temps réel
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📜 LOIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Une loi peut :
+• modifier des règles du serveur
+• influencer d’autres bots
+• créer des privilèges ou restrictions
+
+Les lois adoptées deviennent actives automatiquement.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌍 ÉVOLUTION DE LA SOCIÉTÉ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Le bot analyse :
+• participation
+• conflits
+• désaccords
+• stabilité sociale
+
+Selon les résultats :
+• périodes calmes
+• tensions sociales
+• révoltes possibles
+• réformes nécessaires
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ ÉVÉNEMENTS SPÉCIAUX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Révolutions
+• Réformes
+• Crises sociales
+• États d’urgence
+
+Déclenchés automatiquement si l’équilibre est rompu.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TRANSPARENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Les membres peuvent consulter :
+• lois actives
+• votes passés
+• décisions majeures
+• historique de la société
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ IMPORTANT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ce bot est une expérience sociale.
+Les décisions collectives ont des conséquences collectives.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mises à jour qui arriveront :
+
+- Constitution du serveur :
+/constitution
+/constitution proposer
+/constitution modifier
+
+- Activer / désactiver des systèmes
+
+- CONFIG SÉCURITÉ
+
+- Créer un menu admin Discord
