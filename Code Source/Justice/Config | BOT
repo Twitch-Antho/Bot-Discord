@@ -1,0 +1,115 @@
+⚖️ BOT JUSTICE COMMUNAUTAIRE — DOCUMENTATION OFFICIELLE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 PRINCIPE GÉNÉRAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Le Bot Justice Communautaire remplace la modération classique
+par un système démocratique basé sur :
+- un jury aléatoire
+- des preuves
+- un vote collectif
+- une sanction automatique
+
+Le bot ne juge pas : la communauté décide.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧩 CONCEPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Lorsqu’un membre est signalé :
+• Une affaire est ouverte
+• Le membre est anonymisé (Utilisateur A)
+• Un jury neutre est sélectionné
+• Les preuves sont analysées
+• Un verdict est voté
+• Le bot applique la sanction
+
+Toutes les décisions sont tracées.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ COMMANDES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/juger @membre <raison>
+→ Ouvre une nouvelle affaire
+
+/examiner <id_affaire>
+→ Affiche le dossier (preuves, statut)
+
+/verdict <id_affaire> <decision>
+→ Vote du jury
+Décisions possibles :
+• NON_COUPABLE
+• AVERTISSEMENT
+• MUTE
+• BAN_TEMPORAIRE
+
+/historique
+→ Liste des affaires passées (anonymisées)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👥 JURY COMMUNAUTAIRE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Jury choisi aléatoirement
+• Taille configurable (par défaut : 5)
+• Conditions :
+  - ancienneté minimum
+  - pas impliqué dans l’affaire
+  - pas de bots
+
+Rôle temporaire : ⚖️ Juré
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 PREUVES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Peuvent être ajoutées :
+• messages Discord
+• captures d’écran
+• liens
+• témoignages
+
+Les preuves sont visibles uniquement par le jury.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🗳️ VERDICT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Chaque juré vote une fois.
+Majorité requise.
+
+Le bot applique automatiquement la sanction.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔒 SÉCURITÉ & ANTI-ABUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Anonymisation des accusés
+• Jury aléatoire
+• Historique public
+• Aucune décision unilatérale
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TRANSPARENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Statistiques disponibles :
+• nombre d’affaires
+• taux de condamnation
+• fiabilité des jurés
+• sanctions les plus fréquentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ IMPORTANT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Le bot est un outil communautaire.
+Toute tentative d’abus est elle-même sanctionnable.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mises à jour qui arrive :
+
+- Ajouter UI boutons
+- Ajouter logs / preuves
