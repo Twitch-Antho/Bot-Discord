@@ -1,24 +1,25 @@
-Discord Bots
+# Discord Bots
 
 Here are many developed Discord bots | The source code is provided for free <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">Here</a>
 In each folder, you will find the bot’s source file in Python ".py" along with a file explaining how it works, what it is used for, and what each command does.
 
 Support :
 
-If a bot has an issue on your Discord server or a code error, please report it <a href="https://github.com/AnthoYt/Bot-Discord/issues">Here</a>!
+- If a bot has an issue on your Discord server or a code error, please report it <a href="https://github.com/AnthoYt/Bot-Discord/issues">Here</a>!
 It will be handled as soon as possible and updated once I understand the problem, fix the code, and upload the updated version to this GitHub.
 
-If you would like a custom bot: Moderation, Music, Events, YouTube & Twitch Management, Tickets & Support, Voice systems, Purchases / Tickets / Support... Please open a <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
+- If you would like a custom bot: Moderation, Music, Events, YouTube & Twitch Management, Tickets & Support, Voice systems, Purchases / Tickets / Support...
+Please open a <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
 
-Hosting Locally :
+# Hosting Locally :
 
-Use the application "Visual Studio Code"
+- Use the application "Visual Studio Code"
 
-Install the dependencies:
+- Install the dependencies:
 
-pip install -r requirements.txt
+- pip install -r requirements.txt
 
-Configure the ".py" file with your Token
+- Configure the ".py" file with your Token
 ( and your API application keys if needed for the bot )
 Fill in your Discord and API settings.
 
