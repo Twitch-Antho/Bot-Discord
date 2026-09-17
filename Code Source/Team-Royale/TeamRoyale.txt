@@ -1,0 +1,51 @@
+Code Source
+
+- Création de salon textuels (via commandes) | Salon Privé avec les utilisateurs ajouté dedans
+- Soirée Films (annonce film, création de séance film)
+
+-------------------------------------------------------------------
+
+A rajouter ???
+
+- Ticket ??
+
+- Tirage au sort via des évents crées (/event (nom du jeu) + date et heure + (le nombre de participants qui seront tirés)
+avec des roles qui ont des % en plus d'être sélectionné. Pas de role assigné quand un membre clique sur participer à l'évent (il y a juste son ID, son speudo engistré) et qui est pick
+10 min avant que l'événénement commence.
+
+- Halloween :
+Un salon est désigné pour l'évent Halloween, des membres pourront déposer des images, viéos, dessins.
++ Soit des énigmes spéciales ??? ou Chasse aux indices
+
+Description:
+
+# 🎃 La Chasse aux indices d’Halloween arrive ! 👻
+
+Une mystérieuse créature a caché plusieurs indices dans le serveur…
+
+À vous de les retrouver, de résoudre les énigmes et d’avancer jusqu’au trésor final ! 🕯️
+
+## 🕵️ Comment participer ?
+
+1. Rejoignez la chasse avec la commande `/halloween rejoindre`
+2. Cherchez les indices cachés dans les différents salons
+3. Répondez aux énigmes avec `/halloween repondre`
+4. Trouvez tous les indices avant les autres participants
+
+Chaque bonne réponse vous permettra de découvrir la prochaine étape.
+
+## 🏆 Récompense
+
+Les membres qui termine la chasse remportera :
+
+🎃 Nitro Boost
+🎁 Nitro Basic
+⭐ Une place dans le classement des gagnants^^
+
+## 📅 Date
+
+La chasse commencera le **[date] à [heure]**.
+
+Préparez-vous à explorer le serveur… Certains indices sont peut-être cachés là où vous ne les attendez pas. 👀
+
+Bonne chance à tous… et joyeux Halloween ! 🎃
