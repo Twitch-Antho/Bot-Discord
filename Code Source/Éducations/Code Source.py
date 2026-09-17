@@ -1,128 +1,346 @@
+"""
+Bot Discord éducatif — Quiz, défis Python et système de points.
+
+Installation :
+    python -m pip install -U discord.py
+
+Configuration :
+    1. Crée une variable d'environnement DISCORD_TOKEN contenant le token du bot.
+       Windows PowerShell : $env:DISCORD_TOKEN = "ton_token"
+       Linux/macOS        : export DISCORD_TOKEN="ton_token"
+    2. Active l'intent « Message Content » dans le Developer Portal de Discord.
+    3. Lance le fichier : python "Code Source.py"
+
+Ne partage jamais ton token et ne l'écris pas directement dans le code.
+"""
+
+from __future__ import annotations
+
+import asyncio
+import json
+import logging
+import os
+import random
+import unicodedata
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Final
+
 import discord
 from discord import app_commands
 from discord.ext import commands
-import random
 
-# Intents
-intents = discord.Intents.default()
-intents.message_content = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+# ---------------------------------------------------------------------------
+# Configuration générale
+# ---------------------------------------------------------------------------
 
-# Système de points simple
-user_points = {}
+POINTS_FILE: Final[Path] = Path("points.json")
+QUIZ_TIMEOUT: Final[int] = 30
+POINTS_PER_CORRECT_ANSWER: Final[int] = 10
+POINTS_PER_CHALLENGE: Final[int] = 5
 
-# -----------------------------
-# Quand le bot est prêt
-# -----------------------------
-@bot.event
-async def on_ready():
-    await bot.tree.sync()
-    print(f"{bot.user} est connecté !")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+)
+logger = logging.getLogger("bot-educatif")
 
-# -----------------------------
-# Quiz Math (/quiz)
-# -----------------------------
-math_quiz = {
-    "Collège": [
-        {"question": "Combien font 12 × 8 ?", "answer": "96"},
-        {"question": "Résoudre : 5x = 25", "answer": "5"},
-        {"question": "Quelle est la formule de l’aire d’un cercle ?", "answer": "π*r^2"},
-        {"question": "Résoudre : 3x + 7 = 16", "answer": "3"},
-        {"question": "Combien font 7² ?", "answer": "49"},
-        {"question": "Quel est le PGCD de 12 et 18 ?", "answer": "6"}
-    ],
-    "Lycée": [
-        {"question": "Dériver f(x) = x²", "answer": "2x"},
-        {"question": "Intégrer ∫ x dx", "answer": "1/2*x^2"},
-        {"question": "Résoudre x² - 5x + 6 = 0", "answer": "2 ou 3"},
-        {"question": "Simplifier (x²* x³)", "answer": "x^5"},
-        {"question": "Résoudre ln(e^x) = 3", "answer": "3"},
-        {"question": "Quel est le cos(π/3) ?", "answer": "1/2"}
-    ]
+
+# ---------------------------------------------------------------------------
+# Données du quiz
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class QuizQuestion:
+    """Représente une question et toutes ses réponses acceptées."""
+
+    question: str
+    answers: tuple[str, ...]
+    explanation: str
+
+
+MATH_QUIZ: dict[str, tuple[QuizQuestion, ...]] = {
+    "college": (
+        QuizQuestion("Combien font 12 × 8 ?", ("96",), "12 × 8 = 96."),
+        QuizQuestion("Résoudre : 5x = 25", ("5", "x = 5"), "On divise 25 par 5 : x = 5."),
+        QuizQuestion(
+            "Quelle est la formule de l'aire d'un cercle ?",
+            ("πr²", "pi r²", "pi*r^2", "π*r^2"),
+            "L'aire d'un cercle est π × rayon².",
+        ),
+        QuizQuestion("Résoudre : 3x + 7 = 16", ("3", "x = 3"), "3x = 9, donc x = 3."),
+        QuizQuestion("Combien font 7² ?", ("49",), "7 × 7 = 49."),
+        QuizQuestion("Quel est le PGCD de 12 et 18 ?", ("6",), "Le plus grand diviseur commun est 6."),
+    ),
+    "lycee": (
+        QuizQuestion("Dériver f(x) = x²", ("2x", "2*x"), "La dérivée de x² est 2x."),
+        QuizQuestion(
+            "Quelle est une primitive de f(x) = x ?",
+            ("x²/2", "1/2*x²", "x^2/2", "1/2*x^2"),
+            "Une primitive de x est x²/2 + C.",
+        ),
+        QuizQuestion(
+            "Résoudre x² - 5x + 6 = 0",
+            ("2 ou 3", "3 ou 2", "2, 3", "3, 2"),
+            "Le polynôme se factorise en (x - 2)(x - 3).",
+        ),
+        QuizQuestion("Simplifier x² × x³", ("x⁵", "x^5"), "On additionne les exposants : x²⁺³ = x⁵."),
+        QuizQuestion("Résoudre ln(eˣ) = 3", ("3", "x = 3"), "ln et exp sont des fonctions réciproques."),
+        QuizQuestion("Quel est cos(π/3) ?", ("1/2", "0,5", "0.5"), "cos(π/3) = 1/2."),
+    ),
 }
 
-@bot.tree.command(name="quiz", description="Fais un quiz de maths selon ton niveau")
-@app_commands.choices(level=[
-    app_commands.Choice(name="Collège", value="Collège"),
-    app_commands.Choice(name="Lycée", value="Lycée")
-])
-async def quiz(interaction: discord.Interaction, level: app_commands.Choice[str]):
-    questions = math_quiz[level.value]
-    q = random.choice(questions)
-    
-    embed = discord.Embed(
-        title=f"🧮 Quiz Maths ({level.value})",
-        description=f"**Question :** {q['question']}",
-        color=0x1abc9c
+LEVEL_NAMES: Final[dict[str, str]] = {"college": "Collège", "lycee": "Lycée"}
+
+CODING_CHALLENGES: Final[tuple[tuple[str, str], ...]] = (
+    ("Carré d'un nombre", "Écris une fonction qui reçoit un nombre et retourne son carré."),
+    ("Boucle simple", "Affiche tous les nombres de 1 à 10 avec une boucle."),
+    ("Présentation", "Demande le prénom de l'utilisateur puis affiche un message de bienvenue."),
+    ("Factorielle", "Écris une fonction qui calcule la factorielle d'un nombre entier positif."),
+    ("Chaîne inversée", "Écris une fonction qui retourne une chaîne de caractères à l'envers."),
+)
+
+CYBER_MESSAGES: Final[tuple[str, ...]] = (
+    "⚡ Alerte : intrusion détectée... Vérification des accès en cours.",
+    "🖥️ Analyse des données en cours... Aucun fichier dangereux trouvé.",
+    "🚀 Système cybersécurisé : protocoles actifs.",
+)
+
+
+# ---------------------------------------------------------------------------
+# Gestion des points
+# ---------------------------------------------------------------------------
+
+
+class PointsManager:
+    """Stocke les points dans un fichier JSON pour les conserver après un redémarrage."""
+
+    def __init__(self, file_path: Path) -> None:
+        self.file_path = file_path
+        self.points: dict[str, int] = {}
+        self.lock = asyncio.Lock()
+
+    def load(self) -> None:
+        if not self.file_path.exists():
+            return
+
+        try:
+            data = json.loads(self.file_path.read_text(encoding="utf-8"))
+            self.points = {str(user_id): int(value) for user_id, value in data.items()}
+        except (OSError, ValueError, TypeError) as error:
+            logger.warning("Impossible de charger %s : %s", self.file_path, error)
+            self.points = {}
+
+    def save(self) -> None:
+        try:
+            self.file_path.write_text(
+                json.dumps(self.points, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+        except OSError as error:
+            logger.error("Impossible d'enregistrer les points : %s", error)
+
+    async def add(self, user_id: int, amount: int) -> int:
+        async with self.lock:
+            key = str(user_id)
+            self.points[key] = self.points.get(key, 0) + amount
+            self.save()
+            return self.points[key]
+
+    def get(self, user_id: int) -> int:
+        return self.points.get(str(user_id), 0)
+
+
+points_manager = PointsManager(POINTS_FILE)
+
+
+# ---------------------------------------------------------------------------
+# Utilitaires
+# ---------------------------------------------------------------------------
+
+
+def normalize_answer(answer: str) -> str:
+    """Normalise une réponse pour accepter les espaces et accents variables."""
+    answer = answer.strip().lower().replace("×", "*")
+    answer = "".join(
+        character
+        for character in unicodedata.normalize("NFD", answer)
+        if unicodedata.category(character) != "Mn"
     )
-    embed.set_footer(text="Réponds dans le chat ci-dessous. Tu as 30 secondes !")
+    return " ".join(answer.split())
+
+
+def level_from_points(points: int) -> int:
+    """Chaque tranche de 50 points fait gagner un niveau."""
+    return points // 50 + 1
+
+
+def progress_bar(points: int) -> str:
+    progress = points % 50
+    filled = progress // 5
+    return "🟩" * filled + "⬜" * (10 - filled)
+
+
+# ---------------------------------------------------------------------------
+# Création du bot
+# ---------------------------------------------------------------------------
+
+
+class EducationalBot(commands.Bot):
+    def __init__(self) -> None:
+        intents = discord.Intents.default()
+        # Nécessaire uniquement pour lire la réponse envoyée au quiz.
+        intents.message_content = True
+        super().__init__(command_prefix="!", intents=intents)
+        self.synced = False
+
+    async def setup_hook(self) -> None:
+        points_manager.load()
+        if not self.synced:
+            synced_commands = await self.tree.sync()
+            self.synced = True
+            logger.info("%d commande(s) synchronisée(s).", len(synced_commands))
+
+    async def on_ready(self) -> None:
+        logger.info("%s est connecté !", self.user)
+
+
+bot = EducationalBot()
+
+
+# ---------------------------------------------------------------------------
+# Commande /quiz
+# ---------------------------------------------------------------------------
+
+
+@bot.tree.command(name="quiz", description="Réponds à une question de maths et gagne des points")
+@app_commands.describe(level="Choisis ton niveau scolaire")
+@app_commands.choices(
+    level=[
+        app_commands.Choice(name="Collège", value="college"),
+        app_commands.Choice(name="Lycée", value="lycee"),
+    ]
+)
+async def quiz(interaction: discord.Interaction, level: app_commands.Choice[str]) -> None:
+    """Pose une question puis attend une réponse de l'utilisateur pendant 30 secondes."""
+    question = random.choice(MATH_QUIZ[level.value])
+    embed = discord.Embed(
+        title=f"🧮 Quiz de maths — {LEVEL_NAMES[level.value]}",
+        description=f"**Question :**\n{question.question}",
+        color=discord.Color.teal(),
+    )
+    embed.add_field(name="⏱️ Temps restant", value=f"{QUIZ_TIMEOUT} secondes", inline=False)
+    embed.set_footer(text="Écris ta réponse directement dans ce salon.")
     await interaction.response.send_message(embed=embed)
 
-    def check(m):
-        return m.author == interaction.user and m.channel == interaction.channel
+    def check(message: discord.Message) -> bool:
+        return message.author.id == interaction.user.id and message.channel.id == interaction.channel_id
 
     try:
-        msg = await bot.wait_for("message", check=check, timeout=30)
-        if msg.content.lower() == q["answer"].lower():
-            await interaction.followup.send(f"✅ Correct ! +10 points")
-            user_points[interaction.user.id] = user_points.get(interaction.user.id, 0) + 10
-        else:
-            await interaction.followup.send(f"❌ Faux ! La réponse était : {q['answer']}")
-    except:
-        await interaction.followup.send(f"⏰ Temps écoulé ! La réponse était : {q['answer']}")
+        answer_message = await bot.wait_for("message", check=check, timeout=QUIZ_TIMEOUT)
+    except asyncio.TimeoutError:
+        await interaction.followup.send(f"⏰ Temps écoulé ! La réponse était **{question.answers[0]}**.")
+        return
 
-# -----------------------------
-# Challenge de codage (/code)
-# -----------------------------
-coding_challenges = [
-    "Écrire une fonction qui retourne le carré d’un nombre.",
-    "Créer une boucle qui affiche les nombres de 1 à 10.",
-    "Écrire un programme qui demande le nom de l’utilisateur et l’affiche.",
-    "Écrire une fonction qui calcule la factorielle d’un nombre.",
-    "Écrire un programme qui inverse une chaîne de caractères."
-]
+    accepted_answers = {normalize_answer(answer) for answer in question.answers}
+    if normalize_answer(answer_message.content) in accepted_answers:
+        total = await points_manager.add(interaction.user.id, POINTS_PER_CORRECT_ANSWER)
+        await interaction.followup.send(
+            f"✅ Bonne réponse, {interaction.user.mention} ! **+{POINTS_PER_CORRECT_ANSWER} points**\n"
+            f"{question.explanation}\nTotal : **{total} points**"
+        )
+    else:
+        await interaction.followup.send(
+            f"❌ Ce n'est pas la bonne réponse. La réponse attendue était **{question.answers[0]}**.\n"
+            f"{question.explanation}"
+        )
 
-@bot.tree.command(name="code", description="Reçois un challenge de codage interactif")
-async def code(interaction: discord.Interaction):
-    challenge = random.choice(coding_challenges)
-    
+
+# ---------------------------------------------------------------------------
+# Commande /code
+# ---------------------------------------------------------------------------
+
+
+@bot.tree.command(name="code", description="Reçois un challenge de programmation Python")
+async def code_challenge(interaction: discord.Interaction) -> None:
+    """Affiche un exercice Python aléatoire."""
+    title, description = random.choice(CODING_CHALLENGES)
     embed = discord.Embed(
-        title="💻 Challenge de codage",
-        description=f"**Challenge :** {challenge}",
-        color=0x3498db
+        title=f"💻 Challenge Python — {title}",
+        description=description,
+        color=discord.Color.blue(),
     )
-    embed.add_field(name="Exemple Python :", value=f"```python\n# Ton code ici\n```", inline=False)
-    embed.set_footer(text="Tu peux répondre avec ton code dans le chat !")
+    embed.add_field(
+        name="📝 Exemple de départ",
+        value="```python\n# Écris ta solution ici\n```",
+        inline=False,
+    )
+    embed.add_field(
+        name="🎯 Récompense",
+        value=f"Propose ta solution dans le salon pour obtenir jusqu'à **{POINTS_PER_CHALLENGE} points**.",
+        inline=False,
+    )
+    embed.set_footer(text="Conseil : commence par découper le problème en petites étapes.")
     await interaction.response.send_message(embed=embed)
 
-# -----------------------------
-# Cyber-style interactif (/cyber)
-# -----------------------------
-cyber_messages = [
-    "⚡ Alerte : intrusion détectée...",
-    "🖥️ Analyse des données en cours...",
-    "🚀 Système cybersécurisé : protocoles actifs."
-]
 
-@bot.tree.command(name="cyber", description="Message style hacker / cyber")
-async def cyber(interaction: discord.Interaction):
-    await interaction.response.send_message(random.choice(cyber_messages))
+# ---------------------------------------------------------------------------
+# Commandes /cyber, /points et /classement
+# ---------------------------------------------------------------------------
 
-# -----------------------------
-# Points et niveaux (/points)
-# -----------------------------
-@bot.tree.command(name="points", description="Voir tes points et ton niveau")
-async def points(interaction: discord.Interaction):
-    pts = user_points.get(interaction.user.id, 0)
-    level = pts // 50 + 1
+
+@bot.tree.command(name="cyber", description="Affiche un message au style hacker/cyber")
+async def cyber(interaction: discord.Interaction) -> None:
+    await interaction.response.send_message(random.choice(CYBER_MESSAGES))
+
+
+@bot.tree.command(name="points", description="Affiche tes points, ton niveau et ta progression")
+async def points(interaction: discord.Interaction) -> None:
+    total = points_manager.get(interaction.user.id)
+    level = level_from_points(total)
     embed = discord.Embed(
-        title=f"📊 Points de {interaction.user.name}",
-        description=f"Points : {pts}\nNiveau : {level}",
-        color=0x00ff00
+        title=f"📊 Progression de {interaction.user.display_name}",
+        color=discord.Color.green(),
+    )
+    embed.add_field(name="Points", value=f"**{total}**", inline=True)
+    embed.add_field(name="Niveau", value=f"**{level}**", inline=True)
+    embed.add_field(name="Progression vers le niveau suivant", value=progress_bar(total), inline=False)
+    await interaction.response.send_message(embed=embed)
+
+
+@bot.tree.command(name="classement", description="Affiche le classement des meilleurs élèves")
+async def classement(interaction: discord.Interaction) -> None:
+    if not points_manager.points:
+        await interaction.response.send_message("📚 Le classement est vide pour le moment.")
+        return
+
+    ranking = sorted(points_manager.points.items(), key=lambda item: item[1], reverse=True)[:10]
+    lines = []
+    for position, (user_id, total) in enumerate(ranking, start=1):
+        member = interaction.guild.get_member(int(user_id)) if interaction.guild else None
+        name = member.display_name if member else f"Utilisateur {user_id}"
+        lines.append(f"**{position}.** {name} — **{total} points**")
+
+    embed = discord.Embed(
+        title="🏆 Classement éducatif",
+        description="\n".join(lines),
+        color=discord.Color.gold(),
     )
     await interaction.response.send_message(embed=embed)
 
-# -----------------------------
 
-bot.run("TON_TOKEN_ICI")
+# ---------------------------------------------------------------------------
+# Démarrage sécurisé
+# ---------------------------------------------------------------------------
+
+
+TOKEN = os.getenv("DISCORD_TOKEN")
+if not TOKEN:
+    raise RuntimeError(
+        "La variable d'environnement DISCORD_TOKEN est absente. "
+        "Configure-la avant de lancer le bot."
+    )
+
+bot.run(TOKEN)
