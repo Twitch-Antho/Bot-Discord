@@ -61,3 +61,13 @@ Améliorations possibles :
 - Ajouter des mini-leçons ou astuces codage/math
 - Stockage persistant des points et niveaux (base de données)
 - Ajout de sous-catégories pour les maths (algèbre, géométrie, trigonométrie)
+
+Pour lancer le bot :
+-------------------------------
+python -m pip install -U discord.py
+
+Puis configure le token :
+$env:DISCORD_TOKEN = "TON_TOKEN_DISCORD"
+
+Et exécute :
+python "Code Source.py"
