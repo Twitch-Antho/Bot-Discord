@@ -49,3 +49,12 @@ La chasse commencera le **[date] à [heure]**.
 Préparez-vous à explorer le serveur… Certains indices sont peut-être cachés là où vous ne les attendez pas. 👀
 
 Bonne chance à tous… et joyeux Halloween ! 🎃
+
+
+Commandes membres:
+/halloween chasse rejoindre
+/halloween chasse quitter
+/halloween chasse repondre
+/halloween chasse progression
+/halloween chasse classement
+/halloween chasse aide
