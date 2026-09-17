@@ -1,0 +1,66 @@
+# 🎃 Fonctionnement de la Chasse aux indices
+
+La Chasse aux indices est un mini-jeu d’exploration et d’énigmes organisé dans plusieurs salons du serveur.
+
+Les membres doivent retrouver une série d’indices cachés, puis répondre correctement aux énigmes pour passer à l’étape suivante.
+
+## Déroulement
+
+1. Un membre du staff crée la chasse.
+2. Le staff définit :
+   - Le nom de l’événement
+   - La date et l’heure de début
+   - La durée de l’événement
+   - Le nombre d’indices
+   - Les salons concernés
+   - Les réponses attendues
+   - La récompense finale
+3. Le bot publie l’annonce dans le salon prévu.
+4. Les membres s’inscrivent avec un bouton ou une commande.
+5. Le bot enregistre leur participation.
+6. À l’heure prévue, la chasse commence.
+7. Les participants recherchent les indices dans les salons autorisés.
+8. Ils répondent grâce à la commande `/halloween repondre`.
+9. Le bot valide ou refuse leur réponse.
+10. Le premier membre à trouver tous les indices est déclaré gagnant.
+
+## Gestion des indices
+
+Chaque indice doit posséder :
+
+- Un numéro
+- Un salon où il est caché
+- Une énigme ou une question
+- Une réponse correcte
+- Une réponse facultative avec indice supplémentaire
+- Un nombre de points
+
+Exemple :
+
+- Indice : `2`
+- Salon : `#dessins-halloween`
+- Question : « Je suis orange et je fais peur quand on me sculpte. Qui suis-je ? »
+- Réponse : `citrouille`
+- Valeur : `100 points`
+
+## Règles recommandées
+
+- Un participant ne peut répondre qu’à l’indice qui lui est attribué.
+- Une mauvaise réponse ne doit pas révéler la solution.
+- Les réponses peuvent être insensibles aux majuscules et aux accents.
+- Un délai peut être ajouté entre deux réponses pour éviter le spam.
+- Les membres du staff ne doivent pas participer avec leurs comptes de modération.
+- Les indices doivent être placés avant le lancement de l’événement.
+- Le bot doit empêcher les inscriptions après le début de la chasse.
+
+## Commandes staff
+
+```text
+/halloween chasse creer
+/halloween chasse modifier
+/halloween chasse ajouter-indice
+/halloween chasse lancer
+/halloween chasse participants
+/halloween chasse classement
+/halloween chasse terminer
+/halloween chasse annuler
