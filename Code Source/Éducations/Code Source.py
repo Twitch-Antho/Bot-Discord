@@ -1,19 +1,3 @@
-"""
-Bot Discord éducatif — Quiz, défis Python et système de points.
-
-Installation :
-    python -m pip install -U discord.py
-
-Configuration :
-    1. Crée une variable d'environnement DISCORD_TOKEN contenant le token du bot.
-       Windows PowerShell : $env:DISCORD_TOKEN = "ton_token"
-       Linux/macOS        : export DISCORD_TOKEN="ton_token"
-    2. Active l'intent « Message Content » dans le Developer Portal de Discord.
-    3. Lance le fichier : python "Code Source.py"
-
-Ne partage jamais ton token et ne l'écris pas directement dans le code.
-"""
-
 from __future__ import annotations
 
 import asyncio
