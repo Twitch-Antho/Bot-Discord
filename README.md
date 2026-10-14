@@ -1,80 +1,76 @@
-# Bot-Discord 
+# Bot-Discord
 
-Voici pleins de bot Discord qui sont dev | Où le code source est donné gratuit <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">Ici</a>
-Dans chaque dessosier il se trouve le fichier source du bot en Python ".py" avec un fichier qui explique comment il fonctionne et à quoi il sert et à quoi sert les commandes.
+这里有很多已开发的 Discord 机器人 | 源代码可免费获取 <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source">点击这里</a>
+每个文件夹中都包含该机器人 Python 源代码文件 ".py"，以及一个说明文件，介绍它的功能、用途以及各命令的作用。
 
-# Support :
+# 支持：
 
-- Si un bot possède un problème sur votre discord ou une erreur de de code, merci de le signaler <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ici</a> !
-Il sera traité dès que possible et mis à jour dès que j'aurais compris le  problème et mis à jour le code et transmis dans ce Github.
+- 如果某个机器人在你的 Discord 服务器上出现问题或代码错误，请在此报告：<a href="https://github.com/AnthoYt/Bot-Discord/issues">点击这里</a>！
+我会尽快处理，并在确认问题、修复代码后更新到这个 GitHub 上。
 
-- Si vous voulez avoir un bot spéciale : Modération, Musique, Événements, Gestion YouTube et Twitch, Tickets & Support, Vocales et Autres, Achats /Tickets/ Support... Merci d'ouvrir un <a href="https://github.com/AnthoYt/Bot-Discord/issues">Ticket</a>
+- 如果你想定制一个机器人：例如 管理、音乐、活动、YouTube 和 Twitch 管理、工单与支持、语音频道及其他功能、购买 / 票务 / 支持……请打开一个 <a href="https://github.com/Twitch-Antho/Bot-Discord/issues">工单</a>，说明你的需求。
 
 
-# Héberger en Local :
+# 本地托管：
 
-- Utiliser l'application "Visuale Studio Code"
+- 使用 "Visual Studio Code" 应用程序
 
-- Installez les dépendances :
+- 安装依赖：
 pip install -r requirements.txt
 
-- Configurez le fichier ".py" avec votre Token à remplir
-( et vos applications de vos clés "API" si besoin avec le bot )
- avec vos paramètres Discord et API.
+- 配置 ".py" 文件中的 Token
+（如有需要，也可填写你的 API 密钥以及 Discord 和 API 参数）
 
-- Lancez le bot :
-python "nom du bot".py
+- 启动机器人：
+python "机器人名称".py
 
-⚠️ Attention si message d'erreur, merci d'aller sur notre <a href="https://chatgpt.com/">Technicien pour les bots</a> 😁😁
-
-
-# Hébergeur :
-
-Site Web : https://roxservers.com/
-
-Code perso : « dites que vous venez de “Antho” » (à prévoir comme tu le souhaites)
-
-| Prix 💰     | RAM 💻     | Espace 🖴 | Code </>            |
-| ----------- | ---------- | --------- | ------------------- |
-| 0,99 €/mois | ex. 100 Mo | Illimité  | Python 🐍 / Node.js |
-| 1,99 €/mois | 2 Go       | Illimité  | Python 🐍 / Node.js |
-| 3,49 €/mois | 10 Go      | Illimité  | Python 🐍 / Node.js |
-
-**ou**
-
-Si tu trouves **pas d'hébergeur** crée un [Ticket](https://github.com/Twitch-Antho/Bot-Discord/issues) et demande moi d'héberger ton bot
-le temps que tu trouves comment l'héberger. Je te donne jusqu'à 1 Mois Gratuit vu que tu utilises mes services ( et que norlement j'en founis pas)
-**⚠️ Le Bot sera actif que de 7h50 à 00h00 ( et des possiblités de crash de 30 min max à des moments, au moins c'est prévenus)**
+⚠️ 如果出现错误消息，请前往我们的 <a href="https://chatgpt.com/">机器人技术支持</a> 😁😁
 
 
+# 托管服务：
 
-# Mise à jour ?
+网站：https://roxservers.com/
 
-Les Mises à jour des versions seront un résumé des fichiers ".py" que j'aurais modifié tout en méttant un lient de redirection au Dossier Modifié.
-Vous serez pas obligé de rechanger votre fichier python du code changé mais si il possède un problème via votre bot il serait logique de le changer.
+个人代码：« 请说你来自 “Antho” »（按你希望的方式填写即可）
+
+| 价格 💰     | RAM 💻     | 存储空间 🖴 | 代码 </>            |
+| ----------- | ---------- | ---------- | ------------------- |
+| 0,99 €/月   | 例如 100 Mo | 无限       | Python 🐍 / Node.js |
+| 1,99 €/月   | 2 Go       | 无限       | Python 🐍 / Node.js |
+| 3,49 €/月   | 10 Go      | 无限       | Python 🐍 / Node.js |
+
+**或者**
+
+如果你找不到托管方，请创建一个 [工单](https://github.com/Twitch-Antho/Bot-Discord/issues) 并告诉我你需要托管你的机器人，
+我会在你找到托管方案期间为你提供最多 1 个月的免费托管（因为你使用我的服务，通常我并不提供此类托管）
+**⚠️ 机器人仅在 7:50 到 00:00 之间在线，并且可能会在某些时段出现最多 30 分钟的崩溃，至少会提前通知**
 
 
-Exemple :
+# 更新？
 
-Note Patch sur le bot <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source/Twitch">Twitch</a> :
-- Modification des noms de commande
-- Mise à jour sécurité 
+版本更新会包含我修改过的 ".py" 文件总结，并附上指向修改文件夹的重定向链接。
+你不一定必须替换你当前的 Python 文件；但如果你的机器人存在问题，更新代码是合理的。
 
-# Token Bot ?
+例如：
 
-Pour mettre votre Token de votre bot il faut se rendre sur le Site [Devellopeur](https://discord.com/developers) :
-- Te connecter
-- Aller dans la Catégorie "Application" puis créer une application "Bot"
+关于机器人 <a href="https://github.com/AnthoYt/Bot-Discord/tree/main/Code%20Source/Twitch">Twitch</a> 的补丁说明：
+- 修改命令名称
+- 安全性更新
+
+# 机器人 Token？
+
+要设置你的机器人 Token，请前往开发者网站 [Devellopeur](https://discord.com/developers) ：
+- 登录
+- 进入 "Application" 分类，然后创建一个 "Bot" 应用
 <img width="3839" height="1848" alt="image" src="https://github.com/user-attachments/assets/639b3987-e682-4928-a760-d104d6bb5010" />
 
-- Vous pouvez ensuite configurer votre bot ici ( en choisissant ce qu'il doit faire), lui donner des droits
-- Dans la catérorie **Bot** vous aurez votre Token à reset pour ensuite le copier/ coller dans le code
+- 之后你可以在这里配置你的机器人（选择它应执行的任务），并授予权限
+- 在 **Bot** 分类中，你可以重置你的 Token，然后复制/粘贴到代码中
 <img width="1090" height="600" alt="image" src="https://github.com/user-attachments/assets/73030817-0d9a-40e6-8066-d72141a84fbc" />
 
 
+# 联系方式：
 
-# Contacts :
-
-- <a href="https://youtube.com/@Royale_Antho">Youtube</a>
+- <a href="https://youtube.com/@Royale_Antho">YouTube</a>
 - <a href="https://discord.com/invite/ad7aMevNMx">Discord</a>
 - <a href="https://www.twitch.tv/twitch_antho_off">Twitch</a>
